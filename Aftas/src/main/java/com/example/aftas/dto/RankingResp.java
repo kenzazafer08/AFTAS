@@ -1,7 +1,7 @@
-package com.example.aftas.DTO;
+package com.example.aftas.dto;
 
-import com.example.aftas.Entity.Competition;
-import com.example.aftas.Entity.Member;
+import com.example.aftas.entity.Competition;
+import com.example.aftas.entity.Member;
 import lombok.*;
 
 @Getter

@@ -1,8 +1,6 @@
-package com.example.aftas.DTO;
+package com.example.aftas.dto;
 
-import com.example.aftas.Entity.IdentityDocumentType;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.example.aftas.entity.IdentityDocumentType;
 import lombok.*;
 
 import java.time.LocalDate;

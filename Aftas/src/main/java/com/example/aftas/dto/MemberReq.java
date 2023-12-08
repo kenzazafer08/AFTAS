@@ -1,6 +1,6 @@
-package com.example.aftas.DTO;
+package com.example.aftas.dto;
 
-import com.example.aftas.Entity.IdentityDocumentType;
+import com.example.aftas.entity.IdentityDocumentType;
 import lombok.*;
 
 import jakarta.validation.constraints.NotEmpty;

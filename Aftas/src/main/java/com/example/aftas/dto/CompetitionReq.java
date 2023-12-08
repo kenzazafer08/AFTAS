@@ -1,4 +1,4 @@
-package com.example.aftas.DTO;
+package com.example.aftas.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

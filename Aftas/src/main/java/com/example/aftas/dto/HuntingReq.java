@@ -1,4 +1,4 @@
-package com.example.aftas.DTO;
+package com.example.aftas.dto;
 
 
 import jakarta.validation.constraints.Min;
@@ -7,16 +7,16 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class RankingReq {
+@NoArgsConstructor
+public class HuntingReq {
+    @NotNull
+    @Min(value = 0 , message = "Number of fish must be positive")
+    private int numberOfFish;
+    @NotNull(message = "Fish is required")
+    private String fish;
     @NotNull(message = "Competition is required")
     private String competition;
     @NotNull(message = "Member is required")
     private String member;
-    @Min(value = 0 , message = "Rank should be positive")
-    private int rank;
-    @Min(value = 0 , message = "Score should be positive")
-    private int score;
-
 }

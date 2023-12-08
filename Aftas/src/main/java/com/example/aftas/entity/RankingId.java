@@ -1,4 +1,4 @@
-package com.example.aftas.Entity;
+package com.example.aftas.entity;
 
 import jakarta.persistence.Embeddable;
 

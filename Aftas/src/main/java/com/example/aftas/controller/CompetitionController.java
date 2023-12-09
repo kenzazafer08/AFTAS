@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,5 +31,14 @@ public class CompetitionController {
     public ResponseEntity<CompetitionResp> findById(@PathVariable String id){
         Optional<CompetitionResp> competition = competitionService.findById(id);
         return ResponseEntity.ok(competition.get());
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<CompetitionResp>> getAllCompetitions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        List<CompetitionResp> competitions = competitionService.getAllCompetitions(page,size);
+        return ResponseEntity.ok(competitions);
     }
 }

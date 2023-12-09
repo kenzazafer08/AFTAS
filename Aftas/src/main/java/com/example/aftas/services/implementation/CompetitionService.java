@@ -8,11 +8,14 @@ import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CompetitionService implements CompetitionServiceInterface {
@@ -56,7 +59,11 @@ public class CompetitionService implements CompetitionServiceInterface {
 
     @Override
     public List<CompetitionResp> getAllCompetitions(int page, int size) {
-        return null;
+        Page<Competition> competitionsPage = competitionRepository.findAll(PageRequest.of(page, size));
+        List<Competition> competitions = competitionsPage.getContent();
+        return competitions.stream()
+                .map(level -> modelMapper.map(level, CompetitionResp.class))
+                .collect(Collectors.toList());
     }
 
     @Override

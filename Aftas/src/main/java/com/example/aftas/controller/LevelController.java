@@ -23,15 +23,6 @@ public class LevelController {
         this.levelService = levelService;
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> pointValueNotValid(Exception ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleLevelNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
 
     @PostMapping("/add")
     public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level){

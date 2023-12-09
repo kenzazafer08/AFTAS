@@ -24,11 +24,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleMemberNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Optional<MemberResp>> addMember(@Valid @RequestBody MemberReq member){
         Optional<MemberResp> memberSaved = memberService.AddMember(member);

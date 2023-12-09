@@ -76,15 +76,25 @@ public class LevelService implements LevelServiceInterface {
         Optional<Level> levelToUpdate = levelRepository.findById(levelCode);
         if(levelToUpdate.isPresent()){
             boolean found = false;
+            boolean foundGreaterId = false;
             List<Level> lowerIdLevels = levelRepository.findAllByIdLessThan(levelCode);
-            for (Level lowerIdLevel : lowerIdLevels) {
+            List<Level> greaterIdLevels = levelRepository.findAllByIdGreaterThan(levelCode);
+            for (Level lowerIdLevel : lowerIdLevels ) {
                 if (level.getPoint() <= lowerIdLevel.getPoint()) {
                     found = true;
                     break;
                 }
             }
+            for (Level greaterIdLevel : greaterIdLevels) {
+                if (level.getPoint() >= greaterIdLevel.getPoint()) {
+                    foundGreaterId = true;
+                    break;
+                }
+            }
             if(found){
                 throw new IllegalArgumentException("Points should be higher than existing levels with lower IDs.");
+            }else if(foundGreaterId){
+                throw new IllegalArgumentException("Points should be less than existing levels with greater IDs.");
             }else{
                 levelToUpdate.get().setDescription(level.getDescription());
                 levelToUpdate.get().setPoint(level.getPoint());

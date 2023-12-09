@@ -41,4 +41,11 @@ public class CompetitionController {
         List<CompetitionResp> competitions = competitionService.getAllCompetitions(page,size);
         return ResponseEntity.ok(competitions);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Optional<CompetitionResp>> deleteCompetitions(@PathVariable String id){
+        Optional<CompetitionResp> competition = competitionService.deleteCompetition(id);
+        return ResponseEntity.ok(competition);
+    }
+
 }

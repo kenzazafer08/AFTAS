@@ -73,6 +73,12 @@ public class CompetitionService implements CompetitionServiceInterface {
 
     @Override
     public Optional<CompetitionResp> deleteCompetition(String code) {
-        return Optional.empty();
+        Optional<Competition> competition = competitionRepository.findById(code);
+        if(competition.isPresent()){
+            competitionRepository.delete(competition.get());
+            return Optional.of(modelMapper.map(competition, CompetitionResp.class));
+        }else{
+            throw new ResourceNotFoundException("Competition not found with ID : " + code);
+        }
     }
 }

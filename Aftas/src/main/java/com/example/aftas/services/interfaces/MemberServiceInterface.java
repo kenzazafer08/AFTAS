@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface MemberServiceInterface {
     Optional<MemberResp> AddMember(MemberReq member) ;
     Optional<MemberResp> findById(Long num);
+    List<MemberResp> findByName(String name);
+    List<MemberResp> findByFamilyName(String familyName);
     List<MemberResp> getAllMembers(int page, int size);
     Optional<MemberResp> updateMember(Long memberNum , MemberReq member);
     Optional<MemberResp> deleteMember(Long num);

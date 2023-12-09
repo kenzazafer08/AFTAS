@@ -41,6 +41,12 @@ public class MemberController {
         return ResponseEntity.ok(member.get());
     }
 
+    @GetMapping("/list/{name}")
+    public ResponseEntity<List<MemberResp>> findByName(@PathVariable String name){
+        List<MemberResp> members = memberService.findByName(name);
+        return ResponseEntity.ok(members);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<MemberResp>> getAllMembers(
             @RequestParam(defaultValue = "0") int page,

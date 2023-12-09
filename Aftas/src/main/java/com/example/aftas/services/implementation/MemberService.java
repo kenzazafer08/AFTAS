@@ -49,6 +49,23 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
+    public List<MemberResp> findByName(String name) {
+        List<Member> members = memberRepository.findMemberByName(name);
+        if(members.isEmpty()){
+            throw new ResourceNotFoundException("No member found with this  name : " + name);
+        }else{
+            return members.stream()
+                    .map(member -> modelMapper.map(member, MemberResp.class))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
+    public List<MemberResp> findByFamilyName(String familyName) {
+        return null;
+    }
+
+    @Override
     public List<MemberResp> getAllMembers(int page, int size) {
         Page<Member> membersPage = memberRepository.findAll(PageRequest.of(page, size));
         List<Member> members = membersPage.getContent();

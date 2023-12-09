@@ -3,7 +3,6 @@ package com.example.aftas.controller;
 import com.example.aftas.dto.LevelReq;
 import com.example.aftas.dto.LevelResp;
 import com.example.aftas.exception.ResourceNotFoundException;
-import com.example.aftas.services.implementation.LevelService;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,13 @@ public class LevelController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<LevelResp> addLevel(@Valid @RequestBody LevelReq level) {
+    public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level) throws Exception {
         Optional<LevelResp> levelSaved = levelService.AddLevel(level);
-        return ResponseEntity.ok(levelSaved.get());
+        return ResponseEntity.ok(levelSaved);
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> pointValueNotValid(Exception ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @GetMapping("{id}")

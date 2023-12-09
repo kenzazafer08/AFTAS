@@ -64,6 +64,12 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public Optional<MemberResp> deleteMember(Long num) {
-        return Optional.empty();
+        Optional<Member> member = memberRepository.findById(num);
+        if(member.isPresent()){
+            memberRepository.delete(member.get());
+            return Optional.of(modelMapper.map(member, MemberResp.class));
+        }else{
+            throw new ResourceNotFoundException("Member not found with ID : " + num);
+        }
     }
 }

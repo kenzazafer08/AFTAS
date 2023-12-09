@@ -65,6 +65,15 @@ public class FishService implements FishServiceInterface {
     }
 
     @Override
+    public List<FishResp> getByLevel(Long levelId) {
+        Level level = levelRepository.findById(levelId).orElseThrow(() -> new IllegalArgumentException("Invalid level ID"));
+        List<Fish> fishesByLevel = fishRepository.findByLevel(level);
+        return fishesByLevel.stream()
+                .map(fish -> modelMapper.map(fish, FishResp.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<FishResp> updateFish(String fishName, FishReq fish) {
         Optional<Fish> fishToUpdate = fishRepository.findById(fishName);
         if(fishToUpdate.isPresent()){

@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LevelResp {
-    private int id;
+    private Long id;
     private String description;
     private int point;
 }

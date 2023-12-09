@@ -18,6 +18,7 @@ public class Fish {
     private float averageWeight;
 
     @ManyToOne
+    @JoinColumn(name = "level_id")
     private Level level;
 
     @OneToMany(mappedBy = "fish", fetch = FetchType.EAGER)

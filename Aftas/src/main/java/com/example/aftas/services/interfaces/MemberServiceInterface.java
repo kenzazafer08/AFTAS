@@ -11,6 +11,6 @@ public interface MemberServiceInterface {
     Optional<MemberResp> AddMember(MemberReq member) ;
     Optional<MemberResp> findById(Long num);
     List<MemberResp> getAllMembers(int page, int size);
-    Optional<MemberResp> updateMember(Long memberNum , MemberReq level);
+    Optional<MemberResp> updateMember(Long memberNum , MemberReq member);
     Optional<MemberResp> deleteMember(Long num);
 }

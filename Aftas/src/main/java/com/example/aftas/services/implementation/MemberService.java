@@ -58,8 +58,19 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public Optional<MemberResp> updateMember(Long memberNum, MemberReq level) {
-        return Optional.empty();
+    public Optional<MemberResp> updateMember(Long memberNum, MemberReq member) {
+        Optional<Member> memberToUpdate = memberRepository.findById(memberNum);
+        if(memberToUpdate.isPresent()){
+            memberToUpdate.get().setName(member.getName());
+            memberToUpdate.get().setFamilyName(member.getFamilyName());
+            memberToUpdate.get().setNationality(member.getNationality());
+            memberToUpdate.get().setIdentityDocument(member.getIdentityDocument());
+            memberToUpdate.get().setIdentityNumber(member.getIdentityNumber());
+            memberRepository.save(memberToUpdate.get());
+            return Optional.ofNullable(modelMapper.map(memberToUpdate, MemberResp.class));
+        }else{
+            throw new ResourceNotFoundException("Member not found with ID : " + memberNum);
+        }
     }
 
     @Override

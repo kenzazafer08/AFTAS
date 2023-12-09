@@ -1,5 +1,7 @@
 package com.example.aftas.controller;
 
+import com.example.aftas.dto.LevelReq;
+import com.example.aftas.dto.LevelResp;
 import com.example.aftas.dto.MemberReq;
 import com.example.aftas.dto.MemberResp;
 import com.example.aftas.exception.ResourceNotFoundException;
@@ -23,13 +25,8 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> pointValueNotValid(Exception ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-    }
-
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleLevelNotFoundException(ResourceNotFoundException ex) {
+    public ResponseEntity<String> handleMemberNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
@@ -60,5 +57,13 @@ public class MemberController {
         return ResponseEntity.ok(member);
     }
 
+    @PutMapping("/update/{memberNum}")
+    public ResponseEntity<Optional<MemberResp>> updateLevel(
+            @PathVariable Long memberNum,
+            @Valid @RequestBody MemberReq member
+    ){
+        Optional<MemberResp> updatedMember = memberService.updateMember(memberNum,member);
+        return ResponseEntity.ok(updatedMember);
+    }
 
 }

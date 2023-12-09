@@ -1,7 +1,6 @@
 package com.example.aftas.controller;
 
-import com.example.aftas.dto.LevelReq;
-import com.example.aftas.dto.LevelResp;
+
 import com.example.aftas.dto.MemberReq;
 import com.example.aftas.dto.MemberResp;
 import com.example.aftas.exception.ResourceNotFoundException;

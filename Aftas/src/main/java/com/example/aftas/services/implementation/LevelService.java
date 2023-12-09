@@ -3,6 +3,7 @@ package com.example.aftas.services.implementation;
 import com.example.aftas.dto.LevelReq;
 import com.example.aftas.dto.LevelResp;
 import com.example.aftas.entity.Level;
+import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,12 @@ public class LevelService implements LevelServiceInterface {
 
     @Override
     public Optional<LevelResp> findById(Long id) {
-        return Optional.empty();
+        Optional<Level> level = levelRepository.findById(id);
+        if(level.isPresent()){
+            return Optional.of(modelMapper.map(level,LevelResp.class));
+        }else{
+            throw new ResourceNotFoundException("Level not found with ID : " + id);
+        }
     }
 
     @Override

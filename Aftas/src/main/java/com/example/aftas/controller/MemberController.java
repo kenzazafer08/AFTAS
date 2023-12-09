@@ -41,9 +41,15 @@ public class MemberController {
         return ResponseEntity.ok(member.get());
     }
 
-    @GetMapping("/list/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<List<MemberResp>> findByName(@PathVariable String name){
         List<MemberResp> members = memberService.findByName(name);
+        return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/familyName/{familyName}")
+    public ResponseEntity<List<MemberResp>> findByFamilyName(@PathVariable String familyName){
+        List<MemberResp> members = memberService.findByFamilyName(familyName);
         return ResponseEntity.ok(members);
     }
 

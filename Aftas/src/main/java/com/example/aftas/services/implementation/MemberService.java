@@ -52,7 +52,7 @@ public class MemberService implements MemberServiceInterface {
     public List<MemberResp> findByName(String name) {
         List<Member> members = memberRepository.findMemberByName(name);
         if(members.isEmpty()){
-            throw new ResourceNotFoundException("No member found with this  name : " + name);
+            throw new ResourceNotFoundException("No member found with this name : " + name);
         }else{
             return members.stream()
                     .map(member -> modelMapper.map(member, MemberResp.class))
@@ -62,7 +62,14 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public List<MemberResp> findByFamilyName(String familyName) {
-        return null;
+        List<Member> members = memberRepository.findMemberByFamilyName(familyName);
+        if(members.isEmpty()){
+            throw new ResourceNotFoundException("No member found with this family name : " + familyName);
+        }else{
+            return members.stream()
+                    .map(member -> modelMapper.map(member, MemberResp.class))
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override

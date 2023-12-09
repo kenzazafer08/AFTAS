@@ -17,7 +17,7 @@ public class MemberReq {
     @NotEmpty(message = "Nationality is required")
     private String nationality;
     @NotNull
-    private IdentityDocumentType IdentityDocument;
+    private IdentityDocumentType identityDocument;
     @NotNull
-    private String IdentityNumber;
+    private String identityNumber;
 }

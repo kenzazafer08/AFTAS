@@ -10,10 +10,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResp {
+    private int num;
     private String name;
     private String familyName;
     private String nationality;
     private LocalDate accessionDate;
-    private IdentityDocumentType IdentityDocument;
-    private String IdentityNumber;
+    private IdentityDocumentType identityDocument;
+    private String identityNumber;
 }

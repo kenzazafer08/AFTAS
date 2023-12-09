@@ -34,7 +34,7 @@ public class LevelController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level) throws Exception {
+    public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level){
         Optional<LevelResp> levelSaved = levelService.AddLevel(level);
         return ResponseEntity.ok(levelSaved);
     }

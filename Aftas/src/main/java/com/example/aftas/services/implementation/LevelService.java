@@ -78,6 +78,12 @@ public class LevelService implements LevelServiceInterface {
 
     @Override
     public Optional<LevelResp> deleteLevel(Long id) {
-        return Optional.empty();
+        Optional<Level> level = levelRepository.findById(id);
+        if(level.isPresent()){
+            levelRepository.delete(level.get());
+            return Optional.of(modelMapper.map(level,LevelResp.class));
+        }else{
+            throw new ResourceNotFoundException("Level not found with ID : " + id);
+        }
     }
 }

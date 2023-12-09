@@ -2,6 +2,8 @@ package com.example.aftas.controller;
 
 import com.example.aftas.dto.FishReq;
 import com.example.aftas.dto.FishResp;
+import com.example.aftas.dto.MemberReq;
+import com.example.aftas.dto.MemberResp;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.services.interfaces.FishServiceInterface;
 import jakarta.validation.Valid;
@@ -54,8 +56,17 @@ public class FishController {
         return ResponseEntity.ok(fishes);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Optional<FishResp>> deleteLevel(@PathVariable String id){
+    public ResponseEntity<Optional<FishResp>> deleteFish(@PathVariable String id){
         Optional<FishResp> fish = fishService.deleteFish(id);
         return ResponseEntity.ok(fish);
+    }
+
+    @PutMapping("/update/{fishName}")
+    public ResponseEntity<Optional<FishResp>> updateFish(
+            @PathVariable String fishName,
+            @Valid @RequestBody FishReq fish
+    ){
+        Optional<FishResp> updatedFish= fishService.updateFish(fishName,fish);
+        return ResponseEntity.ok(updatedFish);
     }
 }

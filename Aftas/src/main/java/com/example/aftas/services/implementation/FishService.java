@@ -66,7 +66,17 @@ public class FishService implements FishServiceInterface {
 
     @Override
     public Optional<FishResp> updateFish(String fishName, FishReq fish) {
-        return Optional.empty();
+        Optional<Fish> fishToUpdate = fishRepository.findById(fishName);
+        if(fishToUpdate.isPresent()){
+            Level level = levelRepository.findById(fish.getLevel_id()).orElseThrow(() -> new IllegalArgumentException("Invalid level ID"));
+            fishToUpdate.get().setLevel(level);
+            fishToUpdate.get().setName(fish.getName());
+            fishToUpdate.get().setAverageWeight(fish.getAverageWeight());
+            fishRepository.save(fishToUpdate.get());
+            return Optional.ofNullable(modelMapper.map(fishToUpdate, FishResp.class));
+        }else{
+            throw new ResourceNotFoundException("Fish not found with name : " + fishName);
+        }
     }
 
     @Override

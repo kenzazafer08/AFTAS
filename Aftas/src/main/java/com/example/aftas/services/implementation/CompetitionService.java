@@ -68,7 +68,25 @@ public class CompetitionService implements CompetitionServiceInterface {
 
     @Override
     public Optional<CompetitionResp> updateCompetition(String competitionCode, CompetitionReq competition) {
-        return Optional.empty();
+        Optional<Competition> competitionToUpdate = competitionRepository.findById(competitionCode);
+        if(competitionToUpdate.isPresent()){
+            LocalDate currentDate = LocalDate.now();
+            LocalDate minDate = currentDate.plusDays(2);
+            if (competition.getDate().isBefore(minDate)) {
+                throw new IllegalArgumentException("Date should be at least 48 hours from now");
+            }else{
+                competitionToUpdate.get().setAmount(competition.getAmount());
+                competitionToUpdate.get().setLocation(competition.getLocation());
+                competitionToUpdate.get().setStartTime(competition.getStartTime());
+                competitionToUpdate.get().setEndTime(competition.getEndTime());
+                competitionToUpdate.get().setDate(competition.getDate());
+                competitionToUpdate.get().setNumberOfParticipants(competition.getNumberOfParticipants());
+                competitionRepository.save(competitionToUpdate.get());
+                return Optional.ofNullable(modelMapper.map(competitionToUpdate.get(), CompetitionResp.class));
+            }
+        }else{
+            throw new ResourceNotFoundException("No competition with this code : " + competitionCode);
+        }
     }
 
     @Override

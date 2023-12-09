@@ -3,6 +3,7 @@ package com.example.aftas.controller;
 import com.example.aftas.dto.CompetitionReq;
 import com.example.aftas.dto.CompetitionResp;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,15 @@ public class CompetitionController {
     public ResponseEntity<Optional<CompetitionResp>> deleteCompetitions(@PathVariable String id){
         Optional<CompetitionResp> competition = competitionService.deleteCompetition(id);
         return ResponseEntity.ok(competition);
+    }
+
+    @PutMapping("/update/{competitionCode}")
+    public ResponseEntity<Optional<CompetitionResp>> updateCompetition(
+            @PathVariable String competitionCode,
+            @Valid @RequestBody CompetitionReq competition
+    ){
+        Optional<CompetitionResp> updatedCompetition = competitionService.updateCompetition(competitionCode,competition);
+        return ResponseEntity.ok(updatedCompetition);
     }
 
 }

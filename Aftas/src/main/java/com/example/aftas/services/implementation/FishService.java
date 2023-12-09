@@ -4,15 +4,19 @@ import com.example.aftas.dto.FishReq;
 import com.example.aftas.dto.FishResp;
 import com.example.aftas.entity.Fish;
 import com.example.aftas.entity.Level;
+import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.FishRepository;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.FishServiceInterface;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FishService implements FishServiceInterface {
@@ -43,12 +47,21 @@ public class FishService implements FishServiceInterface {
 
     @Override
     public Optional<FishResp> findByName(String name) {
-        return Optional.empty();
+        Optional<Fish> fish = fishRepository.findById(name);
+        if(fish.isPresent()){
+            return Optional.of(modelMapper.map(fish, FishResp.class));
+        }else{
+            throw new ResourceNotFoundException("Fish not found with name : " + name);
+        }
     }
 
     @Override
     public List<FishResp> getAllFishes(int page, int size) {
-        return null;
+        Page<Fish> fishesPage = fishRepository.findAll(PageRequest.of(page, size));
+        List<Fish> fishes = fishesPage.getContent();
+        return fishes.stream()
+                .map(fish -> modelMapper.map(fish, FishResp.class))
+                .collect(Collectors.toList());
     }
 
     @Override

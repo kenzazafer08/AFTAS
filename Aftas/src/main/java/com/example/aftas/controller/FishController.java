@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,5 +37,20 @@ public class FishController {
     public ResponseEntity<FishResp> AddFish(@Valid @RequestBody FishReq fish){
         Optional<FishResp> savedFish = fishService.AddFish(fish);
         return ResponseEntity.ok(savedFish.get());
+    }
+
+    @GetMapping("{name}")
+    public ResponseEntity<FishResp> findByName(@PathVariable String name){
+        Optional<FishResp> fish = fishService.findByName(name);
+        return ResponseEntity.ok(fish.get());
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<FishResp>> getAllFishes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        List<FishResp> fishes = fishService.getAllFishes(page,size);
+        return ResponseEntity.ok(fishes);
     }
 }

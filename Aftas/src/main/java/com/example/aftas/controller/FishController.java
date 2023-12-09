@@ -53,4 +53,9 @@ public class FishController {
         List<FishResp> fishes = fishService.getAllFishes(page,size);
         return ResponseEntity.ok(fishes);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Optional<FishResp>> deleteLevel(@PathVariable String id){
+        Optional<FishResp> fish = fishService.deleteFish(id);
+        return ResponseEntity.ok(fish);
+    }
 }

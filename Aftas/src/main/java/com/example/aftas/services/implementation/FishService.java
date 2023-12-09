@@ -71,6 +71,12 @@ public class FishService implements FishServiceInterface {
 
     @Override
     public Optional<FishResp> deleteFish(String name) {
-        return Optional.empty();
+        Optional<Fish> fish = fishRepository.findById(name);
+        if(fish.isPresent()){
+            fishRepository.delete(fish.get());
+            return Optional.of(modelMapper.map(fish, FishResp.class));
+        }else{
+            throw new ResourceNotFoundException("Fish not found with name : " + name);
+        }
     }
 }

@@ -5,10 +5,7 @@ import com.example.aftas.dto.CompetitionResp;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -27,5 +24,11 @@ public class CompetitionController {
     public ResponseEntity<Optional<CompetitionResp>> AddCompetition(@RequestBody CompetitionReq competition){
         Optional<CompetitionResp> competitionSaved = competitionService.AddCompetition(competition);
         return ResponseEntity.ok(competitionSaved);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CompetitionResp> findById(@PathVariable String id){
+        Optional<CompetitionResp> competition = competitionService.findById(id);
+        return ResponseEntity.ok(competition.get());
     }
 }

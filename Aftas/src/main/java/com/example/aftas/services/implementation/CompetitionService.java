@@ -3,6 +3,7 @@ package com.example.aftas.services.implementation;
 import com.example.aftas.dto.CompetitionReq;
 import com.example.aftas.dto.CompetitionResp;
 import com.example.aftas.entity.Competition;
+import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
 import org.modelmapper.ModelMapper;
@@ -45,7 +46,12 @@ public class CompetitionService implements CompetitionServiceInterface {
 
     @Override
     public Optional<CompetitionResp> findById(String code) {
-        return Optional.empty();
+        Optional<Competition> competition = competitionRepository.findById(code);
+        if(competition.isPresent()){
+            return Optional.of(modelMapper.map(competition, CompetitionResp.class));
+        }else{
+            throw new ResourceNotFoundException("Competition not found with ID : " + code);
+        }
     }
 
     @Override

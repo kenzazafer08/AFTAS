@@ -3,6 +3,7 @@ package com.example.aftas.services.implementation;
 import com.example.aftas.dto.MemberReq;
 import com.example.aftas.dto.MemberResp;
 import com.example.aftas.entity.Member;
+import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.services.interfaces.MemberServiceInterface;
 import org.modelmapper.ModelMapper;
@@ -36,7 +37,12 @@ public class MemberService implements MemberServiceInterface {
 
     @Override
     public Optional<MemberResp> findById(Long num) {
-        return Optional.empty();
+        Optional<Member> member = memberRepository.findById(num);
+        if(member.isPresent()){
+            return Optional.of(modelMapper.map(member, MemberResp.class));
+        }else{
+            throw new ResourceNotFoundException("Member not found with ID : " + num);
+        }
     }
 
     @Override

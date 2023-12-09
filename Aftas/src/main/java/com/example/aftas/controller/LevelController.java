@@ -3,6 +3,7 @@ package com.example.aftas.controller;
 import com.example.aftas.dto.LevelReq;
 import com.example.aftas.dto.LevelResp;
 import com.example.aftas.exception.ResourceNotFoundException;
+import com.example.aftas.services.implementation.LevelService;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,6 +38,15 @@ public class LevelController {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleLevelNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<LevelResp>> getAllLevels(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        List<LevelResp> Levels = levelService.getAllLevels(page,size);
+        return ResponseEntity.ok(Levels);
     }
 
 }

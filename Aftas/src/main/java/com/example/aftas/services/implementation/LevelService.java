@@ -7,11 +7,14 @@ import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import org.modelmapper.ModelMapper;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LevelService implements LevelServiceInterface {
@@ -44,8 +47,12 @@ public class LevelService implements LevelServiceInterface {
     }
 
     @Override
-    public List<LevelResp> getAllLevels() {
-        return null;
+    public List<LevelResp> getAllLevels(int page, int size) {
+        Page<Level> levelsPage = levelRepository.findAll(PageRequest.of(page, size));
+        List<Level> levels = levelsPage.getContent();
+        return levels.stream()
+                .map(level -> modelMapper.map(level, LevelResp.class))
+                .collect(Collectors.toList());
     }
 
     @Override

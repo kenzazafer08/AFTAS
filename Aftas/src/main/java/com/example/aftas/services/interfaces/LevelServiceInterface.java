@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LevelServiceInterface {
-    Optional<LevelResp> AddLevel(LevelReq level) throws Exception;
+    Optional<LevelResp> AddLevel(LevelReq level) ;
     Optional<LevelResp> findById(Long id);
     List<LevelResp> getAllLevels(int page, int size);
-    Optional<LevelResp> updateLevel(LevelReq level);
+    Optional<LevelResp> updateLevel(Long levelCode , LevelReq level);
     Optional<LevelResp> deleteLevel(Long id);
 }

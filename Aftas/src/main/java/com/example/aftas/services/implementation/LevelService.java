@@ -30,7 +30,7 @@ public class LevelService implements LevelServiceInterface {
 
 
     @Override
-    public Optional<LevelResp> AddLevel(LevelReq level) throws Exception {
+    public Optional<LevelResp> AddLevel(LevelReq level) {
 
         boolean found = false;
 
@@ -72,8 +72,28 @@ public class LevelService implements LevelServiceInterface {
     }
 
     @Override
-    public Optional<LevelResp> updateLevel(LevelReq level) {
-        return Optional.empty();
+    public Optional<LevelResp> updateLevel(Long levelCode ,LevelReq level) {
+        Optional<Level> levelToUpdate = levelRepository.findById(levelCode);
+        if(levelToUpdate.isPresent()){
+            boolean found = false;
+            List<Level> lowerIdLevels = levelRepository.findAllByIdLessThan(levelCode);
+            for (Level lowerIdLevel : lowerIdLevels) {
+                if (level.getPoint() <= lowerIdLevel.getPoint()) {
+                    found = true;
+                    break;
+                }
+            }
+            if(found){
+                throw new IllegalArgumentException("Points should be higher than existing levels with lower IDs.");
+            }else{
+                levelToUpdate.get().setDescription(level.getDescription());
+                levelToUpdate.get().setPoint(level.getPoint());
+                levelRepository.save(levelToUpdate.get());
+                return Optional.of(modelMapper.map(levelToUpdate,LevelResp.class));
+            }
+        }else{
+            throw new ResourceNotFoundException("Level not found with ID : " + levelCode);
+        }
     }
 
     @Override

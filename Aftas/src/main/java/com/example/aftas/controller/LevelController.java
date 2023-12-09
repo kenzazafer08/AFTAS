@@ -60,4 +60,13 @@ public class LevelController {
         return ResponseEntity.ok(level);
     }
 
+    @PutMapping("/update/{levelCode}")
+    public ResponseEntity<Optional<LevelResp>> updateLevel(
+            @PathVariable Long levelCode,
+            @Valid @RequestBody LevelReq level
+    ){
+        Optional<LevelResp> updatedLevel = levelService.updateLevel(levelCode,level);
+        return ResponseEntity.ok(updatedLevel);
+    }
+
 }

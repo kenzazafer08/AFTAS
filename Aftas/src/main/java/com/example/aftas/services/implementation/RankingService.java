@@ -1,23 +1,20 @@
 package com.example.aftas.services.implementation;
 
-import com.example.aftas.dto.RankingReq;
-import com.example.aftas.dto.RankingResp;
-import com.example.aftas.entity.Competition;
-import com.example.aftas.entity.Member;
-import com.example.aftas.entity.Ranking;
-import com.example.aftas.entity.RankingId;
+import com.example.aftas.dto.*;
+import com.example.aftas.entity.*;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.CompetitionRepository;
+import com.example.aftas.repository.FishRepository;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.repository.RankingRepository;
+import com.example.aftas.services.interfaces.HuntingServiceInterface;
 import com.example.aftas.services.interfaces.RankingServiceInterface;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,14 +23,19 @@ public class RankingService implements RankingServiceInterface {
     private final RankingRepository rankingRepository;
     private final CompetitionRepository competitionRepository;
     private final MemberRepository memberRepository;
+    private final FishRepository fishRepository;
+    private final HuntingServiceInterface huntingService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, ModelMapper modelMapper) {
+    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, FishRepository fishRepository, HuntingServiceInterface huntingService, ModelMapper modelMapper) {
         this.rankingRepository = rankingRepository;
         this.competitionRepository = competitionRepository;
         this.memberRepository = memberRepository;
+        this.fishRepository = fishRepository;
+        this.huntingService = huntingService;
         this.modelMapper = modelMapper;
+
     }
 
 
@@ -42,7 +44,7 @@ public class RankingService implements RankingServiceInterface {
         if(validateRanking(ranking.getCompetition())){
             throw new IllegalArgumentException("Competition is closed : number of participant reached");
         }
-        if(validateRanking(ranking.getCompetition())){
+        if(validateDate(ranking.getCompetition())){
             throw new IllegalArgumentException("Competition is closed : date of the competition is on less then 24h");
         }
         Competition competition = competitionRepository.findById(ranking.getCompetition()).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
@@ -86,19 +88,56 @@ public class RankingService implements RankingServiceInterface {
     }
 
     @Override
-    public void calculateAndSetRankings(Competition competition) {
+    public List<RankingResp> calculateAndSetRankings(String competitionCode) {
+        List<RankingResp> rankings = new ArrayList<>();
+        Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
+        List<HuntingResp> huntingResults = huntingService.getHuntByCompetition(competitionCode);
+        Map<MemberResp, Integer> memberScores = calculateMemberScores(huntingResults);
+        List<MemberResp> rankedMembers = getRankedMembers(memberScores);
+        int rank = 1;
+        for (MemberResp member : rankedMembers) {
+            int score = memberScores.get(member);
+            RankingResp rankingResp = new RankingResp();
+            RankingId rankingId = new RankingId(competition.getCode(), member.getNum());
+            rankingResp.setMember(member);
+            rankingResp.setCompetition(modelMapper.map(competition,CompetitionResp.class));
+            rankingResp.setScore(score);
+            rankingResp.setRank(rank++);
+            Ranking rankingToSave = modelMapper.map(rankingResp , Ranking.class);
+            rankingToSave.setId(rankingId);
+            rankingRepository.save(rankingToSave);
+            rankings.add(rankingResp);
+        }
+        return rankings;
+    }
 
+    private Map<MemberResp, Integer> calculateMemberScores(List<HuntingResp> huntingResults) {
+        Map<MemberResp, Integer> memberScores = new HashMap<>();
+        for (HuntingResp result : huntingResults) {
+            int score = result.getFish().getLevel().getPoint() * result.getNumberOfFish();
+            memberScores.put(result.getMember(), memberScores.getOrDefault(result.getMember(), 0) + score);
+        }
+        return memberScores;
+    }
+
+    private List<MemberResp> getRankedMembers(Map<MemberResp, Integer> memberScores) {
+        return memberScores.entrySet().stream()
+                .sorted(Map.Entry.<MemberResp, Integer>comparingByValue().reversed())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<RankingResp> getPodiumByCompetitionCode(String competitionCode) {
-        return null;
+        List<RankingResp> allRankings = getRankingsByCompetitionCode(competitionCode);
+        allRankings.sort(Comparator.comparingInt(RankingResp::getScore).reversed());
+        List<RankingResp> podium = allRankings.stream()
+                .limit(3)
+                .collect(Collectors.toList());
+
+        return podium;
     }
 
-    @Override
-    public List<RankingResp> updateRankings(List<RankingReq> rankings) {
-        return null;
-    }
 
     @Override
     public Optional<RankingResp> deleteRankingById(RankingId id) {
@@ -121,6 +160,6 @@ public class RankingService implements RankingServiceInterface {
         Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new IllegalArgumentException("Invalid competition Code"));
         LocalDate currentDate = LocalDate.now();
         LocalDate minDate = currentDate.plusDays(1);
-        return minDate.isBefore(competition.getDate());
+        return minDate.isAfter(competition.getDate());
     }
 }

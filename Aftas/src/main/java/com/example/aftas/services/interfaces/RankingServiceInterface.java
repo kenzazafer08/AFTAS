@@ -18,11 +18,9 @@ public interface RankingServiceInterface {
 
     List<RankingResp> getRankingsByMemberNumber(Long memberNumber);
 
-    void calculateAndSetRankings(Competition competition);
+    List<RankingResp> calculateAndSetRankings(String competition);
 
     List<RankingResp> getPodiumByCompetitionCode(String competitionCode);
-
-    List<RankingResp> updateRankings(List<RankingReq> rankings);
 
     Optional<RankingResp> deleteRankingById(RankingId id);
 

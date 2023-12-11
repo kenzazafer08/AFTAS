@@ -49,4 +49,14 @@ public class RankingController {
         RankingId id = new RankingId(competitionCode , memberNum);
         return ResponseEntity.ok(rankingService.deleteRankingById(id));
     }
+
+    @PutMapping("/calculate/{id}")
+    public ResponseEntity<List<RankingResp>> calculate(@PathVariable String id){
+        return ResponseEntity.ok(rankingService.calculateAndSetRankings(id));
+    }
+
+    @GetMapping("/podium/{id}")
+    public ResponseEntity<List<RankingResp>> podium(@PathVariable String id){
+        return ResponseEntity.ok(rankingService.getPodiumByCompetitionCode(id));
+    }
 }

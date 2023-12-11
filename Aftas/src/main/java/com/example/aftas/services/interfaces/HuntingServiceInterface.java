@@ -20,7 +20,9 @@ public interface HuntingServiceInterface {
 
     Optional<HuntingResp> createHunting(HuntingReq hunting);
 
-    Optional<HuntingResp> updateHunting(Long code ,HuntingReq hunting);
+    Optional<HuntingResp> increment(Long code);
+
+    Optional<HuntingResp> decrement(Long code);
 
     Optional<HuntingResp> deleteHunting(Long code);
 

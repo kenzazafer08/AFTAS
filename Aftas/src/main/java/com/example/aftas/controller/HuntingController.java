@@ -6,7 +6,6 @@ import com.example.aftas.services.interfaces.HuntingServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,5 +54,15 @@ public class HuntingController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Optional<HuntingResp>> deleteHunting(@PathVariable Long id){
         return ResponseEntity.ok(huntingService.deleteHunting(id));
+    }
+
+    @PutMapping("/increment/{id}")
+    public ResponseEntity<Optional<HuntingResp>> Increment(@PathVariable Long id){
+        return ResponseEntity.ok(huntingService.increment(id));
+    }
+
+    @PutMapping("/decrement/{id}")
+    public ResponseEntity<Optional<HuntingResp>> decrement(@PathVariable Long id){
+        return ResponseEntity.ok(huntingService.decrement(id));
     }
 }

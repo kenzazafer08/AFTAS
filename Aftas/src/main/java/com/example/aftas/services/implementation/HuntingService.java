@@ -97,9 +97,32 @@ public class HuntingService implements HuntingServiceInterface {
     }
 
     @Override
-    public Optional<HuntingResp> updateHunting(Long code, HuntingReq hunting) {
-        return Optional.empty();
+    public Optional<HuntingResp> increment(Long code) {
+        Optional<Hunting> huntingFound = huntingRepository.findById(code);
+        if(huntingFound.isPresent()){
+            huntingFound.get().setNumberOfFish(1 + huntingFound.get().getNumberOfFish());
+            huntingRepository.save(huntingFound.get());
+            return Optional.of(modelMapper.map(huntingFound , HuntingResp.class));
+        }else{
+            throw new IllegalArgumentException("No record match");
+        }
     }
+
+    @Override
+    public Optional<HuntingResp> decrement(Long code) {
+        Optional<Hunting> huntingFound = huntingRepository.findById(code);
+        if(huntingFound.isPresent()){
+            if(huntingFound.get().getNumberOfFish() <= 1){
+                throw new IllegalArgumentException("Number of fish can't decrement to less then 1");
+            }
+            huntingFound.get().setNumberOfFish(huntingFound.get().getNumberOfFish() - 1);
+            huntingRepository.save(huntingFound.get());
+            return Optional.of(modelMapper.map(huntingFound , HuntingResp.class));
+        }else{
+            throw new IllegalArgumentException("No record match");
+        }
+    }
+
 
     @Override
     public Optional<HuntingResp> deleteHunting(Long code) {
@@ -109,5 +132,6 @@ public class HuntingService implements HuntingServiceInterface {
             return Optional.of(modelMapper.map(hunting, HuntingResp.class));
         }else{
             throw new ResourceNotFoundException("Hunting not found with ID : " + code);
-        }    }
+        }
+    }
 }

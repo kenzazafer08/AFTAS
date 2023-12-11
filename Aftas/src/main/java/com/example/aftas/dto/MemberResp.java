@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResp {
-    private int num;
+    private Long num;
     private String name;
     private String familyName;
     private String nationality;

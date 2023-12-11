@@ -13,5 +13,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class RankingId implements Serializable {
     private String competitionCode;
-    private int memberNum;
+    private Long memberNum;
 }

@@ -2,6 +2,7 @@ package com.example.aftas.controller;
 
 import com.example.aftas.dto.RankingReq;
 import com.example.aftas.dto.RankingResp;
+import com.example.aftas.entity.RankingId;
 import com.example.aftas.services.interfaces.RankingServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,11 @@ public class RankingController {
     @GetMapping("/Member/{memberNum}")
     public ResponseEntity<List<RankingResp>> getByMember(@PathVariable Long memberNum){
         return ResponseEntity.ok(rankingService.getRankingsByMemberNumber(memberNum));
+    }
+
+    @DeleteMapping("/Delete/{competitionCode}/{memberNum}")
+    public ResponseEntity<Optional<RankingResp>> deleteRanking(@PathVariable String competitionCode , @PathVariable  Long memberNum){
+        RankingId id = new RankingId(competitionCode , memberNum);
+        return ResponseEntity.ok(rankingService.deleteRankingById(id));
     }
 }

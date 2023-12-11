@@ -90,7 +90,11 @@ public class RankingService implements RankingServiceInterface {
 
     @Override
     public Optional<RankingResp> deleteRankingById(RankingId id) {
-        return Optional.empty();
+        Optional<Ranking> isFound = rankingRepository.findById(id);
+        if(isFound.isPresent()){
+            rankingRepository.delete(isFound.get());
+            return Optional.ofNullable(modelMapper.map(isFound, RankingResp.class));
+        }else throw new IllegalArgumentException("This participant :" + id.getMemberNum() + " is not registered in this competitions" + id.getCompetitionCode());
     }
 
     @Override

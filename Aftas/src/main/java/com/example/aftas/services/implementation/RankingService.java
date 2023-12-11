@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RankingService implements RankingServiceInterface {
@@ -58,7 +59,10 @@ public class RankingService implements RankingServiceInterface {
 
     @Override
     public List<RankingResp> getRankingsByCompetitionCode(String competitionCode) {
-        return null;
+        Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
+        List<Ranking> rankings = rankingRepository.findByCompetition(competition);
+        return rankings.stream().map(ranking -> modelMapper.map(ranking, RankingResp.class))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -58,6 +58,14 @@ public class RankingService implements RankingServiceInterface {
     }
 
     @Override
+    public Optional<RankingResp> getRankingById(RankingId id) {
+        Optional<Ranking> isFound = rankingRepository.findById(id);
+        if(isFound.isPresent()){
+            return Optional.ofNullable(modelMapper.map(isFound.get(), RankingResp.class));
+        }else throw new IllegalArgumentException("This participant :" + id.getMemberNum() + " is not registered in this competitions" + id.getCompetitionCode());
+    }
+
+    @Override
     public List<RankingResp> getRankingsByCompetitionCode(String competitionCode) {
         Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
         List<Ranking> rankings = rankingRepository.findByCompetition(competition);

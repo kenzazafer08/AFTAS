@@ -38,6 +38,12 @@ public class RankingController {
         return ResponseEntity.ok(rankingService.getRankingsByMemberNumber(memberNum));
     }
 
+    @GetMapping("/{competitionCode}/{memberNum}")
+    public ResponseEntity<Optional<RankingResp>> getById(@PathVariable String competitionCode , @PathVariable Long memberNum){
+        RankingId id = new RankingId(competitionCode , memberNum);
+        return ResponseEntity.ok(rankingService.getRankingById(id));
+    }
+
     @DeleteMapping("/Delete/{competitionCode}/{memberNum}")
     public ResponseEntity<Optional<RankingResp>> deleteRanking(@PathVariable String competitionCode , @PathVariable  Long memberNum){
         RankingId id = new RankingId(competitionCode , memberNum);

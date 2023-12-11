@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface RankingServiceInterface {
     Optional<RankingResp> saveRanking(RankingReq ranking);
 
+    Optional<RankingResp> getRankingById(RankingId id);
+
     List<RankingResp> getRankingsByCompetitionCode(String competitionCode);
 
     List<RankingResp> getRankingsByMemberNumber(Long memberNumber);

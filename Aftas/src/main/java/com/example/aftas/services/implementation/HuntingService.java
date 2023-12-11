@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class HuntingService implements HuntingServiceInterface {
@@ -37,7 +38,8 @@ public class HuntingService implements HuntingServiceInterface {
 
     @Override
     public List<HuntingResp> getAllHunts() {
-        return null;
+        List<Hunting> hunts = huntingRepository.findAll();
+        return hunts.stream().map(hunt -> modelMapper.map(hunt, HuntingResp.class)).collect(Collectors.toList());
     }
 
     @Override

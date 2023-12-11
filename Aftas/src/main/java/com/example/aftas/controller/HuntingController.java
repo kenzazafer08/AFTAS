@@ -32,4 +32,9 @@ public class HuntingController {
     public ResponseEntity<List<HuntingResp>> getAllHunting(){
         return ResponseEntity.ok(huntingService.getAllHunts());
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<HuntingResp>> getById(@PathVariable Long id){
+        return ResponseEntity.ok(huntingService.getHuntingByCode(id));
+    }
 }

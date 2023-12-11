@@ -2,7 +2,6 @@ package com.example.aftas.services.implementation;
 
 import com.example.aftas.dto.HuntingReq;
 import com.example.aftas.dto.HuntingResp;
-import com.example.aftas.dto.RankingReq;
 import com.example.aftas.entity.*;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.*;
@@ -43,8 +42,13 @@ public class HuntingService implements HuntingServiceInterface {
     }
 
     @Override
-    public Optional<HuntingResp> getHuntingByCode(String huntingCode) {
-        return Optional.empty();
+    public Optional<HuntingResp> getHuntingByCode(Long huntingCode) {
+        Optional<Hunting> hunting = huntingRepository.findById(huntingCode);
+        if(hunting.isPresent()){
+            return Optional.of(modelMapper.map(hunting, HuntingResp.class));
+        }else{
+            throw new ResourceNotFoundException("Hunting not found with ID : " + huntingCode);
+        }
     }
 
     @Override

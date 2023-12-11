@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface HuntingServiceInterface {
     List<HuntingResp> getAllHunts();
 
-    Optional<HuntingResp> getHuntingByCode(String huntingCode);
+    Optional<HuntingResp> getHuntingByCode(Long huntingCode);
 
     List<HuntingResp> getHuntByCompetition(String competitionCode);
 

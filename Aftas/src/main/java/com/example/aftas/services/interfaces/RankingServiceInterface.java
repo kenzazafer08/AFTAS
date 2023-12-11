@@ -27,5 +27,6 @@ public interface RankingServiceInterface {
     Optional<RankingResp> deleteRankingById(RankingId id);
 
     boolean validateRanking(String competition);
+    boolean validateDate(String competition);
 
 }

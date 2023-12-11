@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,6 +41,9 @@ public class RankingService implements RankingServiceInterface {
     public Optional<RankingResp> saveRanking(RankingReq ranking) {
         if(validateRanking(ranking.getCompetition())){
             throw new IllegalArgumentException("Competition is closed : number of participant reached");
+        }
+        if(validateRanking(ranking.getCompetition())){
+            throw new IllegalArgumentException("Competition is closed : date of the competition is on less then 24h");
         }
         Competition competition = competitionRepository.findById(ranking.getCompetition()).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
         Member member = memberRepository.findById(ranking.getMember()).orElseThrow(() -> new ResourceNotFoundException("Invalid Member code"));
@@ -110,5 +114,13 @@ public class RankingService implements RankingServiceInterface {
         Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new IllegalArgumentException("Invalid competition Code"));
         int numberOfParticipant = rankingRepository.countRankingByCompetition(competition);
         return numberOfParticipant >= competition.getNumberOfParticipants();
+    }
+
+    @Override
+    public boolean validateDate(String competitionCode) {
+        Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new IllegalArgumentException("Invalid competition Code"));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate minDate = currentDate.plusDays(1);
+        return minDate.isBefore(competition.getDate());
     }
 }

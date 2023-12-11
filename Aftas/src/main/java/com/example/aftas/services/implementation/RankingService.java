@@ -66,8 +66,11 @@ public class RankingService implements RankingServiceInterface {
     }
 
     @Override
-    public List<RankingResp> getRankingsByMemberNumber(int memberNumber) {
-        return null;
+    public List<RankingResp> getRankingsByMemberNumber(Long memberNumber) {
+        Member member = memberRepository.findById(memberNumber).orElseThrow(() -> new ResourceNotFoundException("Invalid member Code"));
+        List<Ranking> rankings = rankingRepository.findByMember(member);
+        return rankings.stream().map(ranking -> modelMapper.map(ranking, RankingResp.class))
+                .collect(Collectors.toList());
     }
 
     @Override

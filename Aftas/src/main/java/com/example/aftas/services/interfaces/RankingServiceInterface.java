@@ -14,7 +14,7 @@ public interface RankingServiceInterface {
 
     List<RankingResp> getRankingsByCompetitionCode(String competitionCode);
 
-    List<RankingResp> getRankingsByMemberNumber(int memberNumber);
+    List<RankingResp> getRankingsByMemberNumber(Long memberNumber);
 
     void calculateAndSetRankings(Competition competition);
 

@@ -31,4 +31,9 @@ public class RankingController {
     public ResponseEntity<List<RankingResp>> getByCompetition(@PathVariable String competitionCode){
         return ResponseEntity.ok(rankingService.getRankingsByCompetitionCode(competitionCode));
     }
+
+    @GetMapping("/Member/{memberNum}")
+    public ResponseEntity<List<RankingResp>> getByMember(@PathVariable Long memberNum){
+        return ResponseEntity.ok(rankingService.getRankingsByMemberNumber(memberNum));
+    }
 }

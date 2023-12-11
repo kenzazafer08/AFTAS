@@ -18,5 +18,5 @@ public class HuntingReq {
     @NotNull(message = "Competition is required")
     private String competition;
     @NotNull(message = "Member is required")
-    private String member;
+    private Long member;
 }

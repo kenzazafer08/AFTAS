@@ -2,6 +2,7 @@ package com.example.aftas.services.interfaces;
 
 import com.example.aftas.dto.HuntingReq;
 import com.example.aftas.dto.HuntingResp;
+import com.example.aftas.dto.RankingReq;
 
 import java.util.List;
 import java.util.Optional;

@@ -23,16 +23,14 @@ public class RankingService implements RankingServiceInterface {
     private final RankingRepository rankingRepository;
     private final CompetitionRepository competitionRepository;
     private final MemberRepository memberRepository;
-    private final FishRepository fishRepository;
     private final HuntingServiceInterface huntingService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, FishRepository fishRepository, HuntingServiceInterface huntingService, ModelMapper modelMapper) {
+    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, HuntingServiceInterface huntingService, ModelMapper modelMapper) {
         this.rankingRepository = rankingRepository;
         this.competitionRepository = competitionRepository;
         this.memberRepository = memberRepository;
-        this.fishRepository = fishRepository;
         this.huntingService = huntingService;
         this.modelMapper = modelMapper;
 
@@ -102,6 +100,7 @@ public class RankingService implements RankingServiceInterface {
             rankingResp.setMember(member);
             rankingResp.setCompetition(modelMapper.map(competition,CompetitionResp.class));
             rankingResp.setScore(score);
+
             rankingResp.setRank(rank++);
             Ranking rankingToSave = modelMapper.map(rankingResp , Ranking.class);
             rankingToSave.setId(rankingId);

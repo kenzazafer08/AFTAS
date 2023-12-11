@@ -13,7 +13,7 @@ public class RankingReq {
     @NotNull(message = "Competition is required")
     private String competition;
     @NotNull(message = "Member is required")
-    private String member;
+    private Long member;
     @Min(value = 0 , message = "Rank should be positive")
     private int rank;
     @Min(value = 0 , message = "Score should be positive")

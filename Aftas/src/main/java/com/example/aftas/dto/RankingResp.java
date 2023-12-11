@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RankingResp {
-    private Competition competition;
-    private Member member;
+    private CompetitionResp competition;
+    private MemberResp member;
     private int rank;
     private int score;
 }

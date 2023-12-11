@@ -42,4 +42,13 @@ public class HuntingController {
     public ResponseEntity<List<HuntingResp>> getHuntingByCompetition(@PathVariable String id){
         return ResponseEntity.ok(huntingService.getHuntByCompetition(id));
     }
+
+    @GetMapping("/Member/{id}")
+    public ResponseEntity<List<HuntingResp>> getHuntingByMember(@PathVariable Long id){
+        return ResponseEntity.ok(huntingService.getHuntByMember(id));
+    }
+    @GetMapping("/Fish/{id}")
+    public ResponseEntity<List<HuntingResp>> getHuntingByFish(@PathVariable String id){
+        return ResponseEntity.ok(huntingService.getHuntByFish(id));
+    }
 }

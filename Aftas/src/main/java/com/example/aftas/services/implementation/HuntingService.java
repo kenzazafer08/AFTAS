@@ -60,12 +60,17 @@ public class HuntingService implements HuntingServiceInterface {
 
     @Override
     public List<HuntingResp> getHuntByMember(Long memberCode) {
-        return null;
+        Member member = memberRepository.findById(memberCode).orElseThrow(() -> new ResourceNotFoundException("Invalid Member code"));
+        List<Hunting> hunts = huntingRepository.findByMember(member);
+        return hunts.stream().map((hunt) -> modelMapper.map(hunt , HuntingResp.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<HuntingResp> getHuntByFish(String fishName) {
-        return null;
+        Fish fish = fishRepository.findById(fishName).orElseThrow(() -> new ResourceNotFoundException("Invalid Fish code"));
+        List<Hunting> hunts = huntingRepository.findByFish(fish);
+        return hunts.stream().map((hunt) -> modelMapper.map(hunt , HuntingResp.class)).collect(Collectors.toList());
+
     }
 
     @Override

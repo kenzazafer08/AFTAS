@@ -53,7 +53,9 @@ public class HuntingService implements HuntingServiceInterface {
 
     @Override
     public List<HuntingResp> getHuntByCompetition(String competitionCode) {
-        return null;
+        Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
+        List<Hunting> hunts = huntingRepository.findByCompetition(competition);
+        return hunts.stream().map((hunt) -> modelMapper.map(hunt , HuntingResp.class)).collect(Collectors.toList());
     }
 
     @Override

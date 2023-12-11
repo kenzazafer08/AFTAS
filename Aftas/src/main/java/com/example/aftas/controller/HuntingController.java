@@ -37,4 +37,9 @@ public class HuntingController {
     public ResponseEntity<Optional<HuntingResp>> getById(@PathVariable Long id){
         return ResponseEntity.ok(huntingService.getHuntingByCode(id));
     }
+
+    @GetMapping("/Competition/{id}")
+    public ResponseEntity<List<HuntingResp>> getHuntingByCompetition(@PathVariable String id){
+        return ResponseEntity.ok(huntingService.getHuntByCompetition(id));
+    }
 }

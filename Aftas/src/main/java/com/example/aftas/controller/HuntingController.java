@@ -51,4 +51,9 @@ public class HuntingController {
     public ResponseEntity<List<HuntingResp>> getHuntingByFish(@PathVariable String id){
         return ResponseEntity.ok(huntingService.getHuntByFish(id));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Optional<HuntingResp>> deleteHunting(@PathVariable Long id){
+        return ResponseEntity.ok(huntingService.deleteHunting(id));
+    }
 }

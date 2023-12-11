@@ -103,6 +103,11 @@ public class HuntingService implements HuntingServiceInterface {
 
     @Override
     public Optional<HuntingResp> deleteHunting(Long code) {
-        return Optional.empty();
-    }
+        Optional<Hunting> hunting = huntingRepository.findById(code);
+        if(hunting.isPresent()){
+            huntingRepository.delete(hunting.get());
+            return Optional.of(modelMapper.map(hunting, HuntingResp.class));
+        }else{
+            throw new ResourceNotFoundException("Hunting not found with ID : " + code);
+        }    }
 }

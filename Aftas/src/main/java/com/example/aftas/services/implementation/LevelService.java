@@ -19,14 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class LevelService implements LevelServiceInterface {
 
-    private final LevelRepository levelRepository;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public LevelService(LevelRepository levelRepository, ModelMapper modelMapper) {
-        this.levelRepository = levelRepository;
-        this.modelMapper = modelMapper;
-    }
+    private LevelRepository levelRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override

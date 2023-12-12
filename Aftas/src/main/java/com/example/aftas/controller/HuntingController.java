@@ -15,7 +15,8 @@ import java.util.Optional;
 @RequestMapping("/hunts")
 public class HuntingController {
 
-    private final HuntingServiceInterface huntingService;
+    @Autowired
+    private HuntingServiceInterface huntingService;
 
     @Autowired
     public HuntingController(HuntingServiceInterface huntingService) {

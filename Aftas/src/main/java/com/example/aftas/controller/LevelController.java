@@ -16,13 +16,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/levels")
 public class LevelController {
-    private final LevelServiceInterface levelService;
-
     @Autowired
-    public LevelController(LevelServiceInterface levelService){
-        this.levelService = levelService;
-    }
-
+    private LevelServiceInterface levelService;
 
     @PostMapping("/add")
     public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level){

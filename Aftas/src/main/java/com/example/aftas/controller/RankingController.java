@@ -16,12 +16,8 @@ import java.util.Optional;
 @RequestMapping("/rankings")
 public class RankingController {
 
-    private final RankingServiceInterface rankingService;
-
     @Autowired
-    public RankingController(RankingServiceInterface rankingService) {
-        this.rankingService = rankingService;
-    }
+    private RankingServiceInterface rankingService;
 
     @PostMapping("/add")
     public ResponseEntity<Optional<RankingResp>> addRanking(@Valid @RequestBody RankingReq ranking){

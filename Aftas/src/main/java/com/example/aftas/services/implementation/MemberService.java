@@ -20,14 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class MemberService implements MemberServiceInterface {
 
-    private final MemberRepository memberRepository;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper) {
-        this.memberRepository = memberRepository;
-        this.modelMapper = modelMapper;
-    }
+    private MemberRepository memberRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @Override
     public Optional<MemberResp> AddMember(MemberReq member) {

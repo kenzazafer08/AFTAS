@@ -16,13 +16,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/fishes")
 public class FishController {
-    private final FishServiceInterface fishService;
-
     @Autowired
-    public FishController(FishServiceInterface fishService) {
-        this.fishService = fishService;
-    }
-
+    private FishServiceInterface fishService;
 
     @PostMapping("/add")
     public ResponseEntity<FishResp> AddFish(@Valid @RequestBody FishReq fish){

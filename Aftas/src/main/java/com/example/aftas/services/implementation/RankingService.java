@@ -4,7 +4,6 @@ import com.example.aftas.dto.*;
 import com.example.aftas.entity.*;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.CompetitionRepository;
-import com.example.aftas.repository.FishRepository;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.repository.RankingRepository;
 import com.example.aftas.services.interfaces.HuntingServiceInterface;
@@ -20,21 +19,17 @@ import java.util.stream.Collectors;
 @Service
 public class RankingService implements RankingServiceInterface {
 
-    private final RankingRepository rankingRepository;
-    private final CompetitionRepository competitionRepository;
-    private final MemberRepository memberRepository;
-    private final HuntingServiceInterface huntingService;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, HuntingServiceInterface huntingService, ModelMapper modelMapper) {
-        this.rankingRepository = rankingRepository;
-        this.competitionRepository = competitionRepository;
-        this.memberRepository = memberRepository;
-        this.huntingService = huntingService;
-        this.modelMapper = modelMapper;
+    private RankingRepository rankingRepository;
+    @Autowired
+    private CompetitionRepository competitionRepository;
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private HuntingServiceInterface huntingService;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    }
 
 
     @Override

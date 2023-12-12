@@ -17,12 +17,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/members")
 public class MemberController {
-    private final MemberServiceInterface memberService;
-
     @Autowired
-    public MemberController(MemberServiceInterface memberService) {
-        this.memberService = memberService;
-    }
+    private MemberServiceInterface memberService;
 
     @PostMapping("/add")
     public ResponseEntity<Optional<MemberResp>> addMember(@Valid @RequestBody MemberReq member){

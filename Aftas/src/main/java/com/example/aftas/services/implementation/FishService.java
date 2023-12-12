@@ -21,16 +21,13 @@ import java.util.stream.Collectors;
 @Service
 public class FishService implements FishServiceInterface {
 
-    private final FishRepository fishRepository;
-    private final LevelRepository levelRepository;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public FishService(FishRepository fishRepository, LevelRepository levelRepository, ModelMapper modelMapper) {
-        this.fishRepository = fishRepository;
-        this.levelRepository = levelRepository;
-        this.modelMapper = modelMapper;
-    }
+    private FishRepository fishRepository;
+    @Autowired
+    private LevelRepository levelRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @Override
     public Optional<FishResp> AddFish(FishReq fish) {

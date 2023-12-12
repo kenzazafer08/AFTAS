@@ -15,12 +15,8 @@ import java.util.Optional;
 @RequestMapping("/competitions")
 public class CompetitionController {
 
-    private final CompetitionServiceInterface competitionService;
-
     @Autowired
-    public CompetitionController(CompetitionServiceInterface competitionService) {
-        this.competitionService = competitionService;
-    }
+    private CompetitionServiceInterface competitionService;
 
     @PostMapping("/add")
     public ResponseEntity<Optional<CompetitionResp>> AddCompetition(@RequestBody CompetitionReq competition){

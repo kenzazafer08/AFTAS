@@ -20,14 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class CompetitionService implements CompetitionServiceInterface {
 
-    private final CompetitionRepository competitionRepository;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public CompetitionService(CompetitionRepository competitionRepository, ModelMapper modelMapper) {
-        this.competitionRepository = competitionRepository;
-        this.modelMapper = modelMapper;
-    }
+    private CompetitionRepository competitionRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
 
     @Override

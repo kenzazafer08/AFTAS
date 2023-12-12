@@ -11,6 +11,7 @@ import { FishesComponent } from './components/home/fishes/fishes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FishCardComponent } from './components/home/fish-card/fish-card.component';
 import { FooterComponent } from './components/utils/footer/footer.component';
+import { AboutComponent } from './components/home/about/about.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FooterComponent } from './components/utils/footer/footer.component';
     ButtonComponent,
     FishesComponent,
     FishCardComponent,
-    FooterComponent
+    FooterComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

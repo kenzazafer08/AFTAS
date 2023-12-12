@@ -63,6 +63,14 @@ public class FishService implements FishServiceInterface {
                 .collect(Collectors.toList());
     }
 
+    public List<FishResp> getRandomFishes() {
+        List<Fish> fishes = fishRepository.getRandomFishes();
+        return fishes.stream()
+                .map(fish -> modelMapper.map(fish, FishResp.class))
+                .collect(Collectors.toList());
+    }
+
+
     @Override
     public List<FishResp> getByLevel(Long levelId) {
         Level level = levelRepository.findById(levelId).orElseThrow(() -> new IllegalArgumentException("Invalid level ID"));

@@ -39,6 +39,12 @@ public class FishController {
         List<FishResp> fishes = fishService.getAllFishes(page,size);
         return ResponseEntity.ok(fishes);
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<List<FishResp>> getRandomFishes() {
+        List<FishResp> fishes = fishService.getRandomFishes();
+        return ResponseEntity.ok(fishes);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Optional<FishResp>> deleteFish(@PathVariable String id){
         Optional<FishResp> fish = fishService.deleteFish(id);

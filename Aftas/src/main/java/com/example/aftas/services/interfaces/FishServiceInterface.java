@@ -13,4 +13,5 @@ public interface FishServiceInterface {
     List<FishResp> getByLevel(Long levelId);
     Optional<FishResp> updateFish(String fishName , FishReq fish);
     Optional<FishResp> deleteFish(String name);
+    List<FishResp> getRandomFishes();
 }

@@ -9,7 +9,6 @@ import com.example.aftas.repository.FishRepository;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.FishServiceInterface;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,12 +20,15 @@ import java.util.stream.Collectors;
 @Service
 public class FishService implements FishServiceInterface {
 
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private LevelRepository levelRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final FishRepository fishRepository;
+    private final LevelRepository levelRepository;
+    private final ModelMapper modelMapper;
+
+    public FishService(FishRepository fishRepository, LevelRepository levelRepository, ModelMapper modelMapper) {
+        this.fishRepository = fishRepository;
+        this.levelRepository = levelRepository;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override

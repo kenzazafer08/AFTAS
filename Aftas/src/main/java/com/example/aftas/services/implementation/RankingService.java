@@ -9,7 +9,6 @@ import com.example.aftas.repository.RankingRepository;
 import com.example.aftas.services.interfaces.HuntingServiceInterface;
 import com.example.aftas.services.interfaces.RankingServiceInterface;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,17 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class RankingService implements RankingServiceInterface {
 
-    @Autowired
-    private RankingRepository rankingRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private HuntingServiceInterface huntingService;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final RankingRepository rankingRepository;
+    private final CompetitionRepository competitionRepository;
+    private final MemberRepository memberRepository;
+    private final HuntingServiceInterface huntingService;
+    private final ModelMapper modelMapper;
 
+    public RankingService(RankingRepository rankingRepository, CompetitionRepository competitionRepository, MemberRepository memberRepository, HuntingServiceInterface huntingService, ModelMapper modelMapper) {
+        this.rankingRepository = rankingRepository;
+        this.competitionRepository = competitionRepository;
+        this.memberRepository = memberRepository;
+        this.huntingService = huntingService;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override

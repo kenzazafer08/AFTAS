@@ -2,11 +2,8 @@ package com.example.aftas.controller;
 
 import com.example.aftas.dto.LevelReq;
 import com.example.aftas.dto.LevelResp;
-import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +13,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/levels")
 public class LevelController {
-    @Autowired
-    private LevelServiceInterface levelService;
+
+    private final LevelServiceInterface levelService;
+
+    public LevelController(LevelServiceInterface levelService) {
+        this.levelService = levelService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Optional<LevelResp>> addLevel(@Valid @RequestBody LevelReq level){

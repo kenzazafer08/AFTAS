@@ -17,21 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class HuntingService implements HuntingServiceInterface {
 
-    @Autowired
-    private HuntingRepository huntingRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private RankingRepository rankingRepository;
+    private final HuntingRepository huntingRepository;
+    private final ModelMapper modelMapper;
+    private final CompetitionRepository competitionRepository;
+    private final FishRepository fishRepository;
+    private final MemberRepository memberRepository;
+    private final RankingRepository rankingRepository;
 
 
-    @Autowired
     public HuntingService(HuntingRepository huntingRepository, ModelMapper modelMapper, CompetitionRepository competitionRepository, FishRepository fishRepository, MemberRepository memberRepository, RankingRepository rankingRepository) {
         this.huntingRepository = huntingRepository;
         this.modelMapper = modelMapper;

@@ -5,7 +5,6 @@ import com.example.aftas.dto.RankingResp;
 import com.example.aftas.entity.RankingId;
 import com.example.aftas.services.interfaces.RankingServiceInterface;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,12 @@ import java.util.Optional;
 @RequestMapping("/rankings")
 public class RankingController {
 
-    @Autowired
-    private RankingServiceInterface rankingService;
+
+    private final RankingServiceInterface rankingService;
+
+    public RankingController(RankingServiceInterface rankingService) {
+        this.rankingService = rankingService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Optional<RankingResp>> addRanking(@Valid @RequestBody RankingReq ranking){

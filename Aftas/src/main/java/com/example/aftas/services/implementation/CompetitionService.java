@@ -7,7 +7,6 @@ import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class CompetitionService implements CompetitionServiceInterface {
 
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private ModelMapper modelMapper;
 
+    private final CompetitionRepository competitionRepository;
+    private final ModelMapper modelMapper;
+
+    public CompetitionService(CompetitionRepository competitionRepository, ModelMapper modelMapper) {
+        this.competitionRepository = competitionRepository;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override

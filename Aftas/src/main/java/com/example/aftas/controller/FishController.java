@@ -2,11 +2,8 @@ package com.example.aftas.controller;
 
 import com.example.aftas.dto.FishReq;
 import com.example.aftas.dto.FishResp;
-import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.services.interfaces.FishServiceInterface;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +13,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/fishes")
 public class FishController {
-    @Autowired
-    private FishServiceInterface fishService;
+    private final FishServiceInterface fishService;
+
+    public FishController(FishServiceInterface fishService) {
+        this.fishService = fishService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<FishResp> AddFish(@Valid @RequestBody FishReq fish){

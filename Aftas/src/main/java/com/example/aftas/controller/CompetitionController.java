@@ -4,7 +4,6 @@ import com.example.aftas.dto.CompetitionReq;
 import com.example.aftas.dto.CompetitionResp;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +14,11 @@ import java.util.Optional;
 @RequestMapping("/competitions")
 public class CompetitionController {
 
-    @Autowired
-    private CompetitionServiceInterface competitionService;
+    private final CompetitionServiceInterface competitionService;
+
+    public CompetitionController(CompetitionServiceInterface competitionService) {
+        this.competitionService = competitionService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Optional<CompetitionResp>> AddCompetition(@RequestBody CompetitionReq competition){

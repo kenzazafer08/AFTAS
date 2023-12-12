@@ -7,7 +7,6 @@ import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.services.interfaces.MemberServiceInterface;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,10 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class MemberService implements MemberServiceInterface {
 
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
+
+    public MemberService(MemberRepository memberRepository, ModelMapper modelMapper) {
+        this.memberRepository = memberRepository;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override

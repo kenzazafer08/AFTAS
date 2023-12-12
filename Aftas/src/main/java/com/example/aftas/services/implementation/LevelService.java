@@ -6,7 +6,6 @@ import com.example.aftas.entity.Level;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,13 @@ import java.util.stream.Collectors;
 @Service
 public class LevelService implements LevelServiceInterface {
 
-    @Autowired
-    private LevelRepository levelRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final LevelRepository levelRepository;
+    private final ModelMapper modelMapper;
+
+    public LevelService(LevelRepository levelRepository, ModelMapper modelMapper) {
+        this.levelRepository = levelRepository;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override

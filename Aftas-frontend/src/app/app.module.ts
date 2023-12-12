@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FishCardComponent } from './components/home/fish-card/fish-card.component';
 import { FooterComponent } from './components/utils/footer/footer.component';
 import { AboutComponent } from './components/home/about/about.component';
+import { CompetitionsComponent } from './components/competition/competitions/competitions.component';
+import { HeadComponent } from './components/utils/head/head.component';
+import { CompetitionCardComponent } from './components/competition/competition-card/competition-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { AboutComponent } from './components/home/about/about.component';
     FishesComponent,
     FishCardComponent,
     FooterComponent,
-    AboutComponent
+    AboutComponent,
+    CompetitionsComponent,
+    HeadComponent,
+    CompetitionCardComponent
   ],
   imports: [
     BrowserModule,

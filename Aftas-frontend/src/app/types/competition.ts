@@ -2,10 +2,10 @@ import { Time } from "@angular/common";
 
 export interface Competition{
     code : string;
-    Date : Date;
+    date : Date;
     startTime : Time;
     endTime : Time;
     numberOfParticipants : number;
-    Location : string;
+    location : string;
     amount : number;
 }

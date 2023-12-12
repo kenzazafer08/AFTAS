@@ -1,4 +1,16 @@
 <app-navbar></app-navbar>
-<app-head text="Add competition" color="#000075" title="Competitions" ></app-head>
-<app-competition-card *ngFor="let competition of competitions" [competition]="competition">
-  </app-competition-card>
+<div class="flex w-[90%] justify-end m-10">
+  <select id="categories" class="w-[40%] sm:mx-10 bg-transparent border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
+  (change)="onFilterChange($event)">
+    <option selected  value="all">All competitions</option>
+    <option value="pending">Waiting</option>
+    <option value="in_progress">In Progress</option>
+    <option value="closed">Closed</option>
+  </select> 
+  <app-button color="#000075" text="Add competition"></app-button>
+</div>
+<div class="w-full flex justify-around">
+  <div class="grid grid-cols-3 gap-8 mt-4 mb-4">
+    <app-competition-card *ngFor="let competition of filteredCompetitions" [competition]="competition"></app-competition-card>
+  </div>
+</div>

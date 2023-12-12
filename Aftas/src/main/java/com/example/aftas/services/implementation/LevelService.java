@@ -29,19 +29,28 @@ public class LevelService implements LevelServiceInterface {
     public Optional<LevelResp> AddLevel(LevelReq level) {
 
         boolean found = false;
+        boolean foundGreaterId = false;
 
         Level levelToSave = modelMapper.map(level, Level.class);
 
-        List<Level> lowerIdLevels = levelRepository.findAll();
-
-        for (Level lowerIdLevel : lowerIdLevels) {
-            if (levelToSave.getPoint() <= lowerIdLevel.getPoint()) {
+        List<Level> lowerIdLevels = levelRepository.findAllByIdLessThan(level.getId());
+        List<Level> greaterIdLevels = levelRepository.findAllByIdGreaterThan(level.getId());
+        for (Level lowerIdLevel : lowerIdLevels ) {
+            if (level.getPoint() <= lowerIdLevel.getPoint()) {
                 found = true;
+                break;
+            }
+        }
+        for (Level greaterIdLevel : greaterIdLevels) {
+            if (level.getPoint() >= greaterIdLevel.getPoint()) {
+                foundGreaterId = true;
                 break;
             }
         }
         if(found){
             throw new IllegalArgumentException("Points should be higher than existing levels with lower IDs.");
+        }else if(foundGreaterId){
+            throw new IllegalArgumentException("Points should be less than existing levels with greater IDs.");
         }else{
             Level levelSaved = levelRepository.save(levelToSave);
             return Optional.of(modelMapper.map(levelSaved,LevelResp.class));

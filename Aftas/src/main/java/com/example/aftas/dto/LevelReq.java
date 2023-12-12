@@ -10,6 +10,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LevelReq {
+
+    @NotNull(message = "Id is required")
+    private Long id;
     @NotEmpty(message = "Description is required")
     private String description;
     @NotNull

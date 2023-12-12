@@ -7,6 +7,10 @@ import { NavbarComponent } from './components/utils/navbar/navbar.component';
 import { HeaderComponent } from './components/home/header/header.component';
 import { HomeComponent } from './components/home/home/home.component';
 import { ButtonComponent } from './components/utils/button/button.component';
+import { FishesComponent } from './components/home/fishes/fishes.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FishCardComponent } from './components/home/fish-card/fish-card.component';
+import { FooterComponent } from './components/utils/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +18,15 @@ import { ButtonComponent } from './components/utils/button/button.component';
     NavbarComponent,
     HeaderComponent,
     HomeComponent,
-    ButtonComponent
+    ButtonComponent,
+    FishesComponent,
+    FishCardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

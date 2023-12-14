@@ -10,8 +10,20 @@
   <app-button color="#000075" text="Add competition"></app-button>
 </div>
 <div class="w-full flex justify-around">
-  <div class="grid grid-cols-3 gap-8 mt-4 mb-4">
+  <div class="grid grid-cols-3 gap-8 mt-4 mb-4 " style="min-height: 400px;">
     <app-competition-card *ngFor="let competition of filteredCompetitions" [competition]="competition"></app-competition-card>
   </div>
+  
 </div>
+<div class="flex justify-center items-center space-x-2">
+  <button
+    *ngFor="let page of pagesArray"
+    [ngClass]="{ 'bg-blue-500 text-white': page === currentPage, 'bg-gray-200 text-gray-700': page !== currentPage }"
+    class="px-3 py-2 rounded-md focus:outline-none"
+    (click)="onPageChange(page)"
+  >
+    {{ page }}
+  </button>
+</div>
+
 <app-footer></app-footer>

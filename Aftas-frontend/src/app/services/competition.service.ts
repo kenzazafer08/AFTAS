@@ -12,8 +12,13 @@ export class CompetitionService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getCompetitions() : Observable<Competition[]>{
-    let listURL : string = `${this.apiUrl}/list`;
+  getCompetitions(pageNumber: number, pageSize: number) : Observable<Competition[]>{
+    let listURL : string = `${this.apiUrl}/list?page=${pageNumber}&size=${pageSize}`;
     return this.httpClient.get<Competition[]>(listURL);
+  }
+
+  getTotalPagesNumber(pageSize : number) : Observable<number>{
+    let pagesURL : string = `${this.apiUrl}/pages/${pageSize}`;
+    return this.httpClient.get<number>(pagesURL);
   }
 }

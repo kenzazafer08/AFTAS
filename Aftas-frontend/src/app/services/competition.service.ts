@@ -1,8 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Competition } from '../types/competition';
 import { Observable } from 'rxjs';
-
+const httpOptions = {
+  headers : new HttpHeaders({
+    'content-type': 'application/json'
+  }) 
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -20,5 +24,10 @@ export class CompetitionService {
   getTotalPagesNumber(pageSize : number) : Observable<number>{
     let pagesURL : string = `${this.apiUrl}/pages/${pageSize}`;
     return this.httpClient.get<number>(pagesURL);
+  }
+
+  addCompetition(competition : Competition | undefined) : Observable<Competition>{
+    let addURL : string = `${this.apiUrl}/add`;
+    return this.httpClient.post<Competition>(addURL,competition,httpOptions);
   }
 }

@@ -62,5 +62,10 @@ export class CompetitionsComponent implements OnInit{
   OpenModal(){
     this.modalOpen = true;
   }
+  AddCompetition(competition : Competition | undefined){
+    console.log(competition);
+    this._competitionsService.addCompetition(competition).subscribe((competition) => this.competitions.push(competition));
+    this.modalOpen = false;
+  }
 }
 

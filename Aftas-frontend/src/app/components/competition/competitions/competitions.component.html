@@ -10,7 +10,7 @@
   <app-button color="#000075" text="Add competition" (btnClick) = "OpenModal()"></app-button>
 </div>
 <app-modal [open]="modalOpen" >
-  <app-add-competition ></app-add-competition>
+  <app-add-competition (onAddCompetition) = "AddCompetition($event)"></app-add-competition>
 </app-modal>
 <div class="w-full flex justify-around">
   <div class="grid grid-cols-3 gap-8 mt-4 mb-4 " style="min-height: 400px;">

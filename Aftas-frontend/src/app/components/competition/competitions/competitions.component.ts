@@ -16,6 +16,9 @@ export class CompetitionsComponent implements OnInit{
   totalPages : number = 0;
   pagesArray: number[] = [];
 
+  modalOpen: boolean = false;
+
+
 
   constructor(private _competitionsService : CompetitionService){}
 
@@ -54,6 +57,10 @@ export class CompetitionsComponent implements OnInit{
     } else {
       this.filteredCompetitions = this.competitions;
     }
+  }
+
+  OpenModal(){
+    this.modalOpen = true;
   }
 }
 

@@ -14,6 +14,10 @@ import { FooterComponent } from './components/utils/footer/footer.component';
 import { AboutComponent } from './components/home/about/about.component';
 import { CompetitionsComponent } from './components/competition/competitions/competitions.component';
 import { CompetitionCardComponent } from './components/competition/competition-card/competition-card.component';
+import { ModalComponent } from './components/utils/modal/modal.component';
+import { FormComponent } from './components/utils/form/form.component';
+import { AddCompetitionComponent } from './components/competition/add-competition/add-competition.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,12 +31,16 @@ import { CompetitionCardComponent } from './components/competition/competition-c
     FooterComponent,
     AboutComponent,
     CompetitionsComponent,
-    CompetitionCardComponent
+    CompetitionCardComponent,
+    ModalComponent,
+    FormComponent,
+    AddCompetitionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

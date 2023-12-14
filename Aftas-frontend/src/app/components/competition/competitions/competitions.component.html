@@ -7,8 +7,11 @@
     <option value="in_progress">In Progress</option>
     <option value="closed">Closed</option>
   </select> 
-  <app-button color="#000075" text="Add competition"></app-button>
+  <app-button color="#000075" text="Add competition" (btnClick) = "OpenModal()"></app-button>
 </div>
+<app-modal [open]="modalOpen" >
+  <app-add-competition ></app-add-competition>
+</app-modal>
 <div class="w-full flex justify-around">
   <div class="grid grid-cols-3 gap-8 mt-4 mb-4 " style="min-height: 400px;">
     <app-competition-card *ngFor="let competition of filteredCompetitions" [competition]="competition"></app-competition-card>

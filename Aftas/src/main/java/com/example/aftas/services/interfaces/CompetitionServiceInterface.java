@@ -13,4 +13,5 @@ public interface CompetitionServiceInterface {
     List<CompetitionResp> getAllCompetitions(int page, int size);
     Optional<CompetitionResp> updateCompetition(String competitionCode , CompetitionReq competition);
     Optional<CompetitionResp> deleteCompetition(String code);
+    long getTotalPages(Integer size);
 }

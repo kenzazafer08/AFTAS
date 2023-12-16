@@ -56,4 +56,9 @@ public class CompetitionController {
         return ResponseEntity.ok(updatedCompetition);
     }
 
+    @GetMapping("pages/{size}")
+    public ResponseEntity<Long> getNumberOfPages(@PathVariable Integer size){
+        return ResponseEntity.ok(competitionService.getTotalPages(size));
+    }
+
 }

@@ -98,4 +98,9 @@ public class CompetitionService implements CompetitionServiceInterface {
             throw new ResourceNotFoundException("Competition not found with ID : " + code);
         }
     }
+
+    public long getTotalPages(Integer size) {
+        long totalCompetitions = competitionRepository.count();
+        return (totalCompetitions + size - 1) / size; // Calculate total pages
+    }
 }

@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+<div style="min-height: 500px;" class="p-10 flex sm:flex-cols md:flex-row justify-between items-start">
+    <app-competition-card [competition]="competition"></app-competition-card>
+    <ng-template #noParticipants>
+        <app-empty text ="participant"></app-empty>
+      </ng-template>
+    <ng-container *ngIf="rankings && rankings.length > 0; else noParticipants">
+        <app-table class="p-2" [columns]="tableColumns" [data]="rankings"></app-table>
+      </ng-container>
+</div>
+<app-footer></app-footer>

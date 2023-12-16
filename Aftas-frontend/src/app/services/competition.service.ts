@@ -30,4 +30,9 @@ export class CompetitionService {
     let addURL : string = `${this.apiUrl}/add`;
     return this.httpClient.post<Competition>(addURL,competition,httpOptions);
   }
+
+  getCompetition(code : string | null) : Observable<Competition>{
+    let url : string = `${this.apiUrl}/${code}`;
+    return this.httpClient.get<Competition>(url);
+  }
 }

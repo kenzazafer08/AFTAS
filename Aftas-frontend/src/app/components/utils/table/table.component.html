@@ -1,0 +1,34 @@
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th *ngFor="let column of columns" scope="col" class="px-6 py-3">
+            {{ column.header }}
+          </th>
+          <th *ngIf="question" class="px-6 py-3">See More</th>
+          <th scope="col" class="px-6 py-3">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td *ngFor="let column of columns" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <ng-container *ngIf="isObjectColumn(column)">
+                {{ getItemValue(item, column) }}
+              </ng-container>
+              <ng-container *ngIf="!isObjectColumn(column)">
+                {{ item[column.field] }}
+              </ng-container>
+          </td>          
+          <td class="px-6 py-4 flex justify-around items-center">
+            <fa-icon 
+              class="cursor-pointer"
+              (click)="onDelete(item)"
+              [ngStyle]="{ 'color': 'red' }" 
+              [icon]="faDelete"> 
+            </fa-icon>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

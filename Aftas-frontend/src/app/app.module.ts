@@ -18,6 +18,9 @@ import { FormComponent } from './components/utils/form/form.component';
 import { AddCompetitionComponent } from './components/competition/add-competition/add-competition.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CompetitionDetailComponent } from './components/competition/competition-detail/competition-detail.component';
+import { TableComponent } from './components/utils/table/table.component';
+import { EmptyComponent } from './components/utils/empty/empty.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CompetitionCardComponent,
     ModalComponent,
     FormComponent,
-    AddCompetitionComponent
+    AddCompetitionComponent,
+    CompetitionDetailComponent,
+    TableComponent,
+    EmptyComponent
   ],
   imports: [
     BrowserModule,

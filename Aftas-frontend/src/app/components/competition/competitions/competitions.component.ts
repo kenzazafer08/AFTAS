@@ -12,7 +12,7 @@ export class CompetitionsComponent implements OnInit{
   filteredCompetitions : Competition[] = [];
 
   currentPage = 1;
-  pageSize = 3; // Define your page size
+  pageSize = 6; 
   totalPages : number = 0;
   pagesArray: number[] = [];
 
@@ -64,7 +64,9 @@ export class CompetitionsComponent implements OnInit{
   }
   AddCompetition(competition : Competition | undefined){
     console.log(competition);
-    this._competitionsService.addCompetition(competition).subscribe((competition) => this.competitions.push(competition));
+    this._competitionsService.addCompetition(competition).subscribe((competition) => console.log(competition));
+    this._competitionsService.getTotalPagesNumber(this.pageSize).subscribe(totalPages => this.totalPages = totalPages).add(()=>this.pagesArray = Array.from({ length: this.totalPages }, (_, index) => index + 1));
+    this._competitionsService.getCompetitions(this.currentPage -1 , this.pageSize).subscribe(competitions => this.competitions = competitions ).add(() => this.filteredCompetitions = this.competitions);
     this.modalOpen = false;
   }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/utils/navbar/navbar.component';
@@ -18,6 +17,7 @@ import { ModalComponent } from './components/utils/modal/modal.component';
 import { FormComponent } from './components/utils/form/form.component';
 import { AddCompetitionComponent } from './components/competition/add-competition/add-competition.component';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

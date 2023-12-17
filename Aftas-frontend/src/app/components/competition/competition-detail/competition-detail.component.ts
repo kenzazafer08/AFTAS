@@ -29,7 +29,7 @@ export class CompetitionDetailComponent implements OnInit {
   modalPodium : boolean = false;
   tableColumns = [
     { header: 'Number', field: 'member.num' },
-    { header: 'Name', field: 'member.num' },
+    { header: 'Name', field: 'member.name' },
     { header: 'Family name', field: 'member.familyName' },
     { header: 'Nationality', field: 'member.nationality' },
     { header : 'Identity document', field : 'member.identityDocument'},

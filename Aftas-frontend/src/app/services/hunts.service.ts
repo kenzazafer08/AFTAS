@@ -11,7 +11,7 @@ export class HuntsService {
 
   constructor(private httpClient : HttpClient) { }
 
-  get(competitionCode : string | undefined , memberNumber : number ) : Observable<hunts[]>{
+  get(competitionCode : string | null , memberNumber : number ) : Observable<hunts[]>{
     const url = this.apiUrl + '/' + competitionCode + '/' + memberNumber
     return this.httpClient.get<hunts[]>(url);
   }

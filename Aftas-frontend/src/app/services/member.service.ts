@@ -22,4 +22,8 @@ export class MemberService {
     const url = this.apiUrl + '/add';
     return this.httpClient.post<Member>(url,member);
   }
+  get(num : number) : Observable<Member>{
+    const url = this.apiUrl + '/' + num;
+    return this.httpClient.get<Member>(url);
+  }
 }

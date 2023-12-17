@@ -24,9 +24,9 @@ public class Member {
     private IdentityDocumentType IdentityDocument;
     private String IdentityNumber;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Hunting> hunts;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Ranking> competitions;
 }

@@ -24,9 +24,9 @@ public class Competition {
     private String location;
     private float amount;
 
-    @OneToMany(mappedBy = "competition", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.EAGER)
     private List<Hunting> hunts;
 
-    @OneToMany(mappedBy = "competition", fetch = FetchType.EAGER , cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.EAGER)
     private List<Ranking> members;
 }

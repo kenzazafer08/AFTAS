@@ -21,6 +21,6 @@ public class Fish {
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @OneToMany(mappedBy = "fish", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "fish", fetch = FetchType.EAGER)
     private List<Hunting> hunts;
 }

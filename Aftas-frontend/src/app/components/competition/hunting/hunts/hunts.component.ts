@@ -29,7 +29,7 @@ export class HuntsComponent implements OnInit {
   ];
   text : string = 'Member'
   yourEntityFields : any[] = [
-    { type: 'number', label: 'Number of fishes', name: 'numberOfFishes', inputType: 'number'},
+    { type: 'number', label: 'Number of fishes', name: 'numberOfFishes', inputType: 'number',  minValue: '1',},
      {
       label: 'Fishes',
       type: 'select',
@@ -73,12 +73,18 @@ export class HuntsComponent implements OnInit {
 
       if (newHunt) {
         console.log(newHunt);
-        this.huntService.add(newHunt).subscribe(hunt => this.hunts.push(hunt))
+    this.huntService.add(newHunt).subscribe(hunt => {console.log(hunt);this.huntService.get(this.id, this.num).subscribe(res => {this.hunts = res; console.log(res)});})
       }
 
       formData.numberOfFishes = ''
       formData.fish = ''
       this.modalOpen = false
     }
+  }
+  increment(hunt : hunts) {
+    this.huntService.increment(hunt.id).subscribe((res) => console.log(res))
+  }
+  decrement(hunt : hunts){
+    this.huntService.decrement(hunt.id).subscribe((res)=> console.log(res))
   }
 }

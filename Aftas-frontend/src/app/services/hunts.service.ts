@@ -21,4 +21,12 @@ export class HuntsService {
     const url = this.apiUrl + '/' + 'add'
     return this.httpClient.post<hunts>(url,hunt);
   }
+  increment(huntId : number) : Observable<hunts>{
+    const url = this.apiUrl + '/' + 'increment' + '/' +huntId;
+    return this.httpClient.put<hunts>(url,huntId);
+  }
+  decrement(huntId : number) : Observable<hunts>{
+    const url = this.apiUrl + '/' + 'decrement' + '/' +huntId;
+    return this.httpClient.put<hunts>(url,huntId);
+  }
 }

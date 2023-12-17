@@ -18,7 +18,7 @@
     </div>
     <div style="width: 90%;" class="pl-4">
         <app-button color="#000075" text="Add hunting" (btnClick) = "OpenModal()"></app-button>
-        <app-table *ngIf="hunts.length>0"  [remove]="true" class="p-2" [columns]="tableColumns" [data]="hunts" ></app-table>
+        <app-table *ngIf="hunts.length>0" (plus)="increment($event)" (minus)="decrement($event)"  [remove]="true" class="p-2" [columns]="tableColumns" [data]="hunts" ></app-table>
     </div>
 </div>
 <app-footer></app-footer>

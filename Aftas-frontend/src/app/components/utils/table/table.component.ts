@@ -14,10 +14,30 @@ export class TableComponent {
 
   @Output() Open = new EventEmitter();
   @Output() Delete = new EventEmitter();
+  @Output() plus = new EventEmitter();
+  @Output() minus = new EventEmitter();
 
 
   faDelete = faTrash;
   faDetails = faBoxOpen;
+
+  isNumber(value: any): boolean {
+    return typeof value === 'number';
+  }
+
+  incrementValue(item: any, field: string): void {
+    if (this.isNumber(item[field])) {
+      item[field]++;
+      this.plus.emit(item);
+    }
+  }
+
+  decrementValue(item: any, field: string): void {
+    if (this.isNumber(item[field]) && item[field] > 1) {
+      item[field]--;
+      this.minus.emit(item);
+    }
+  }
 
   isObjectColumn(column: any): boolean {
     return typeof column.field === 'string' && column.field.includes('.');

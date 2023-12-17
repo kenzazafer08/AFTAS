@@ -2,7 +2,7 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th *ngFor="let column of columns" scope="col" class="px-6 py-3">
+          <th *ngFor="let column of columns" scope="col" class="px-6 py-3 text-center">
             {{ column.header }}
           </th>
           <th *ngIf="open" scope="col" class="px-6 py-3">Hunts</th>
@@ -11,15 +11,28 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <td *ngFor="let column of columns" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            <ng-container *ngIf="isObjectColumn(column)">
+          <ng-container *ngFor="let column of columns">
+            <td class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <ng-container *ngIf="isObjectColumn(column)">
                 {{ getItemValue(item, column) }}
               </ng-container>
               <ng-container *ngIf="!isObjectColumn(column)">
-                {{ item[column.field] }}
+                <ng-container *ngIf="isNumber(item[column.field])">
+                  <!-- Display number with increment and decrement buttons -->
+                  <div class="flex items-center justify-center">
+                    <button (click)="decrementValue(item, column.field)" class="px-2 py-1 text-gray-600">-</button>
+                    <span>{{ item[column.field] }}</span>
+                    <button (click)="incrementValue(item, column.field)" class="px-2 py-1 text-gray-600">+</button>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isNumber(item[column.field])">
+                  <!-- Display non-numeric fields -->
+                  {{ item[column.field] }}
+                </ng-container>
               </ng-container>
-          </td>          
-          <td class="px-6 py-4 flex justify-around items-center">
+            </td>
+          </ng-container>       
+          <td class="px-6 py-4 flex justify-center items-center">
             <fa-icon *ngIf="open" class="cursor-pointer" [icon] = "faDetails" (click)="openHunts(item)"></fa-icon>
             <fa-icon *ngIf="remove"
               class="cursor-pointer"

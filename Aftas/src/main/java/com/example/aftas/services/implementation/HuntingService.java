@@ -73,6 +73,16 @@ public class HuntingService implements HuntingServiceInterface {
     }
 
     @Override
+    public List<HuntingResp> getHuntByMemberInParticipant(String code, Long num) {
+        Competition competition = competitionRepository.findById(code).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
+        Member member = memberRepository.findById(num).orElseThrow(() -> new ResourceNotFoundException("Invalid Member code"));
+        RankingId rankingId = new RankingId(competition.getCode(), member.getNum());
+        rankingRepository.findById(rankingId).orElseThrow(()-> new ResourceNotFoundException("This member : "+ member.getName() + member.getFamilyName()+" is not registered in this competition" + competition.getCode()));
+        List<Hunting> hunts = huntingRepository.findByCompetitionAndMember(competition,member);
+        return hunts.stream().map((hunt) -> modelMapper.map(hunt , HuntingResp.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<HuntingResp> createHunting(HuntingReq hunting) {
         Hunting huntingToSave = modelMapper.map(hunting , Hunting.class);
         Competition competition = competitionRepository.findById(hunting.getCompetition()).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));

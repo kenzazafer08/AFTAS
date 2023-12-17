@@ -88,7 +88,7 @@ public class RankingService implements RankingServiceInterface {
         List<HuntingResp> huntingResults = huntingService.getHuntByCompetition(competitionCode);
         Map<MemberResp, Integer> memberScores = calculateMemberScores(huntingResults);
         List<MemberResp> rankedMembers = getRankedMembers(memberScores);
-        int rank = 1;
+        int rank = 0;
         for (MemberResp member : rankedMembers) {
             int score = memberScores.get(member);
             RankingResp rankingResp = new RankingResp();

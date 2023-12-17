@@ -26,6 +26,7 @@ export class CompetitionDetailComponent implements OnInit {
   in_progress : boolean = false;
   closed : boolean = false;
   membersReached : boolean = false;
+  modalPodium : boolean = false;
   tableColumns = [
     { header: 'Number', field: 'member.num' },
     { header: 'Name', field: 'member.num' },
@@ -33,11 +34,11 @@ export class CompetitionDetailComponent implements OnInit {
     { header: 'Nationality', field: 'member.nationality' },
     { header : 'Identity document', field : 'member.identityDocument'},
     { header : 'Identity number', field : 'member.identityNumber'},
-    { header : 'Rank', field : 'rank'},
     { header : 'Score', field : 'score'},
   ];
   selectedMember : Ranking | undefined;
   modalDelete : boolean = false;
+  podiumList : Ranking[] = [];
  constructor (private r : Router,private route: ActivatedRoute , private competitionService : CompetitionService, private rankingService : RankingService, private memberService : MemberService){}
 ngOnInit(): void {
   this.route.params.subscribe(params => {
@@ -128,7 +129,8 @@ onFormSubmit(formData: any): void {
     this.rankingService.calculate(this.competition?.code).subscribe((res) => {console.log(res); this.ngOnInit()})
   }
   podium(){
-    this.rankingService.podium(this.competition?.code).subscribe((res) => {console.log(res);})
+    this.rankingService.podium(this.competition?.code).subscribe((res) => {this.podiumList = res;    this.modalPodium = true;
+    })
   }
 }
 

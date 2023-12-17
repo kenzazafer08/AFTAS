@@ -10,6 +10,9 @@
 <app-button color="red" text="Yes i'm sure" (btnClick)="delete(selectedMember)"></app-button>
 
 </app-modal>
+<app-modal [open]="modalPodium">
+  <app-podium [podium] = "podiumList"></app-podium>
+</app-modal>
 
 <div style="min-height: 500px;" class="p-10 flex sm:flex-cols md:flex-row justify-between items-start">
     <app-competition-card class="hidden sm:block" [competition]="competition"></app-competition-card>

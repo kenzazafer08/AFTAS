@@ -24,6 +24,7 @@ import { EmptyComponent } from './components/utils/empty/empty.component';
 import { AutocompleteComponent } from './components/utils/autocomplete/autocomplete.component';
 import { AddMemberComponent } from './components/competition/add-member/add-member.component';
 import { HuntsComponent } from './components/competition/hunting/hunts/hunts.component';
+import { PodiumComponent } from './components/competition/podium/podium.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HuntsComponent } from './components/competition/hunting/hunts/hunts.com
     EmptyComponent,
     AutocompleteComponent,
     AddMemberComponent,
-    HuntsComponent
+    HuntsComponent,
+    PodiumComponent
   ],
   imports: [
     BrowserModule,

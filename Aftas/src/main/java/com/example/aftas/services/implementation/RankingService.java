@@ -83,43 +83,36 @@ public class RankingService implements RankingServiceInterface {
 
     @Override
     public List<RankingResp> calculateAndSetRankings(String competitionCode) {
-        List<RankingResp> rankings = new ArrayList<>();
         Competition competition = competitionRepository.findById(competitionCode).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
-        List<HuntingResp> huntingResults = huntingService.getHuntByCompetition(competitionCode);
-        Map<MemberResp, Integer> memberScores = calculateMemberScores(huntingResults);
-        List<MemberResp> rankedMembers = getRankedMembers(memberScores);
-        int rank = 0;
-        for (MemberResp member : rankedMembers) {
-            int score = memberScores.get(member);
-            RankingResp rankingResp = new RankingResp();
-            RankingId rankingId = new RankingId(competition.getCode(), member.getNum());
-            rankingResp.setMember(member);
-            rankingResp.setCompetition(modelMapper.map(competition,CompetitionResp.class));
-            rankingResp.setScore(score);
-
-            rankingResp.setRank(rank++);
-            Ranking rankingToSave = modelMapper.map(rankingResp , Ranking.class);
-            rankingToSave.setId(rankingId);
-            rankingRepository.save(rankingToSave);
-            rankings.add(rankingResp);
+        List<Ranking> rankings = rankingRepository.findByCompetition(competition);
+        for(Ranking r : rankings){
+            r.setScore(calculateScoreForRanking(r,competitionCode));
+            rankingRepository.save(r);
         }
-        return rankings;
+        setRankForInCompetition(competition);
+        return rankings.stream().map((rank) -> modelMapper.map(rank , RankingResp.class)).collect(Collectors.toList());
     }
 
-    private Map<MemberResp, Integer> calculateMemberScores(List<HuntingResp> huntingResults) {
-        Map<MemberResp, Integer> memberScores = new HashMap<>();
-        for (HuntingResp result : huntingResults) {
-            int score = result.getFish().getLevel().getPoint() * result.getNumberOfFish();
-            memberScores.put(result.getMember(), memberScores.getOrDefault(result.getMember(), 0) + score);
+    private void setRankForInCompetition(Competition competitionCode) {
+        List<Ranking> memberRankings = rankingRepository.findByCompetition(competitionCode);
+        Collections.sort(memberRankings, Comparator.comparingInt(Ranking::getScore).reversed());
+
+        int rank = 1;
+        for (Ranking ranking : memberRankings) {
+            ranking.setRank(rank++);
+            rankingRepository.save(ranking);
         }
-        return memberScores;
     }
 
-    private List<MemberResp> getRankedMembers(Map<MemberResp, Integer> memberScores) {
-        return memberScores.entrySet().stream()
-                .sorted(Map.Entry.<MemberResp, Integer>comparingByValue().reversed())
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+    public int calculateScoreForRanking(Ranking ranking, String competitionCode) {
+        int totalScore = 0;
+        List<HuntingResp> hunts = huntingService.getHuntByMemberInParticipant(competitionCode, ranking.getMember().getNum());
+        for (HuntingResp hunt : hunts) {
+            int score = hunt.getFish().getLevel().getPoint() * hunt.getNumberOfFish();
+            totalScore += score;
+        }
+
+        return totalScore;
     }
 
     @Override

@@ -1,3 +1,11 @@
+<app-modal [open]="delete">
+  <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+    Are you sure you wanna delete this competition : {{selectedCompetition?.code}}
+</div>
+<app-button color="red" text="Yes i'm sure" (btnClick)="onDelete(selectedCompetition)"></app-button>
+
+</app-modal>
+
 <app-navbar></app-navbar>
 <div class="flex w-[90%] justify-end m-10">
   <select id="categories" class="w-[40%] sm:mx-10 bg-transparent border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
@@ -14,7 +22,7 @@
 </app-modal>
 <div class="w-full flex justify-around">
   <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-8 mt-4 mb-4 " style="min-height: 400px;">
-    <app-competition-card *ngFor="let competition of filteredCompetitions" [competition]="competition"></app-competition-card>
+    <app-competition-card (delete) ="modalDelete($event)" [options]="true" *ngFor="let competition of filteredCompetitions" [competition]="competition"></app-competition-card>
   </div>
   
 </div>

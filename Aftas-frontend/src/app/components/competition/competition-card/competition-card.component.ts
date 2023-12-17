@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Competition } from 'src/app/types/competition'
 import { faClockFour , faUser , faMoneyBill} from '@fortawesome/free-solid-svg-icons';
 @Component({
@@ -11,6 +11,8 @@ export class CompetitionCardComponent implements OnInit {
     console.log(typeof(this.competition))
   }
   @Input() competition: Competition | undefined; 
+  @Input() options: boolean = false;
+  @Output() delete = new EventEmitter();
   faTime = faClockFour;
   faUser = faUser;
   faMoney = faMoneyBill;
@@ -19,5 +21,8 @@ export class CompetitionCardComponent implements OnInit {
 
     const [hours, minutes, seconds] = time.split(':');
     return `${hours}h:${minutes}m`;
+  }
+  onDelete(competition : Competition | undefined){
+    this.delete.emit(competition);
   }
 }

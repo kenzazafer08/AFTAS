@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompetitionService } from 'src/app/services/competition.service';
 import { Competition } from 'src/app/types/competition';
+import { CompetitionCardComponent } from '../competition-card/competition-card.component';
 
 @Component({
   selector: 'app-competitions',
@@ -10,7 +11,8 @@ import { Competition } from 'src/app/types/competition';
 export class CompetitionsComponent implements OnInit{
   competitions : Competition[] = [];
   filteredCompetitions : Competition[] = [];
-
+  selectedCompetition : Competition | undefined;
+  delete : boolean = false;
   currentPage = 1;
   pageSize = 6; 
   totalPages : number = 0;
@@ -68,6 +70,16 @@ export class CompetitionsComponent implements OnInit{
     this._competitionsService.getTotalPagesNumber(this.pageSize).subscribe(totalPages => this.totalPages = totalPages).add(()=>this.pagesArray = Array.from({ length: this.totalPages }, (_, index) => index + 1));
     this._competitionsService.getCompetitions(this.currentPage -1 , this.pageSize).subscribe(competitions => this.competitions = competitions ).add(() => this.filteredCompetitions = this.competitions);
     this.modalOpen = false;
+  }
+
+  modalDelete(competition : Competition | undefined): void {
+    this.delete = true;
+    this.selectedCompetition = competition;
+  }
+
+  onDelete(selectedCompetition : Competition | undefined){
+    this.delete=false;
+    this._competitionsService.delete(selectedCompetition?.code).subscribe(competitions => {console.log(competitions); this.ngOnInit()})
   }
 }
 

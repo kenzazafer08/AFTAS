@@ -35,4 +35,8 @@ export class CompetitionService {
     let url : string = `${this.apiUrl}/${code}`;
     return this.httpClient.get<Competition>(url);
   }
+  delete(code : string |undefined) : Observable<Competition>{
+    let url : string = `${this.apiUrl}/delete/${code}`;
+    return this.httpClient.delete<Competition>(url);
+  }
 }

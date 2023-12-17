@@ -6,6 +6,8 @@ import { Ranking } from 'src/app/types/ranking';
 import { RankingService } from 'src/app/services/ranking.service';
 import { MemberService } from 'src/app/services/member.service';
 import { RankingReq } from 'src/app/types/rankingReq';
+import { MemberReq } from 'src/app/types/MemberReq';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-competition-detail',
@@ -61,6 +63,20 @@ onFormSubmit(formData: any): void {
   }
 }
 
+  addMember(member : MemberReq) {
+    this.modal = false;
+    this.memberService.add(member).subscribe(member => 
+      Swal.fire({
+      title: 'Success!',
+      text: `Member ${member.name} registered successfully !`,
+      icon: 'success',
+      confirmButtonText: 'Okay',
+      confirmButtonColor: 'blue' // Change this to your desired color
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    }))
+  }
 }
 
 

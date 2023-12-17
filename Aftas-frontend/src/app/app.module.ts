@@ -22,6 +22,7 @@ import { CompetitionDetailComponent } from './components/competition/competition
 import { TableComponent } from './components/utils/table/table.component';
 import { EmptyComponent } from './components/utils/empty/empty.component';
 import { AutocompleteComponent } from './components/utils/autocomplete/autocomplete.component';
+import { AddMemberComponent } from './components/competition/add-member/add-member.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AutocompleteComponent } from './components/utils/autocomplete/autocompl
     CompetitionDetailComponent,
     TableComponent,
     EmptyComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    AddMemberComponent
   ],
   imports: [
     BrowserModule,

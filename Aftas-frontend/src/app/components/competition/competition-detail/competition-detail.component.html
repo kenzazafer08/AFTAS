@@ -1,14 +1,15 @@
 <app-navbar></app-navbar>
 
 <app-modal [open]="modal" >
-         
-    </app-modal>
+    <app-add-member (add)="addMember($event)"></app-add-member>
+</app-modal>
 
 <div style="min-height: 500px;" class="p-10 flex sm:flex-cols md:flex-row justify-between items-start">
-    <app-competition-card [competition]="competition"></app-competition-card>
+    <app-competition-card class="hidden sm:block" [competition]="competition"></app-competition-card>
     <div>
         <div class="flex justify-around items-start ">
           <app-autocomplete (formSubmit)="onFormSubmit($event)" class=" pr-5"></app-autocomplete>
+          <app-button color="#000075" text="Add member" (btnClick) = "OpenModal()"></app-button>
         </div>
         <ng-container *ngIf="rankings && rankings.length > 0;">
             <app-table class="p-2" [columns]="tableColumns" [data]="rankings"></app-table>

@@ -32,9 +32,9 @@ export class CompetitionDetailComponent implements OnInit {
     { header: 'Name', field: 'member.name' },
     { header: 'Family name', field: 'member.familyName' },
     { header: 'Nationality', field: 'member.nationality' },
-    { header : 'Identity document', field : 'member.identityDocument'},
     { header : 'Identity number', field : 'member.identityNumber'},
     { header : 'Score', field : 'score'},
+    { header : 'Rank', field : 'rank'},
   ];
   selectedMember : Ranking | undefined;
   modalDelete : boolean = false;

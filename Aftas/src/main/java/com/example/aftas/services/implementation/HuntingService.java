@@ -137,6 +137,9 @@ public class HuntingService implements HuntingServiceInterface {
     public Optional<HuntingResp> deleteHunting(Long code) {
         Optional<Hunting> hunting = huntingRepository.findById(code);
         if(hunting.isPresent()){
+            hunting.get().setMember(null);
+            hunting.get().setCompetition(null);
+            hunting.get().setFish(null);
             huntingRepository.delete(hunting.get());
             return Optional.of(modelMapper.map(hunting, HuntingResp.class));
         }else{

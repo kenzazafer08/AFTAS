@@ -131,6 +131,8 @@ public class RankingService implements RankingServiceInterface {
     public Optional<RankingResp> deleteRankingById(RankingId id) {
         Optional<Ranking> isFound = rankingRepository.findById(id);
         if(isFound.isPresent()){
+            isFound.get().setCompetition(null);
+            isFound.get().setMember(null);
             rankingRepository.delete(isFound.get());
             return Optional.ofNullable(modelMapper.map(isFound, RankingResp.class));
         }else throw new IllegalArgumentException("This participant :" + id.getMemberNum() + " is not registered in this competitions" + id.getCompetitionCode());

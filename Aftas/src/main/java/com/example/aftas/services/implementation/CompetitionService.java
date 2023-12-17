@@ -6,6 +6,7 @@ import com.example.aftas.entity.Competition;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.CompetitionRepository;
 import com.example.aftas.services.interfaces.CompetitionServiceInterface;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -88,6 +89,7 @@ public class CompetitionService implements CompetitionServiceInterface {
         }
     }
 
+    @Transactional
     @Override
     public Optional<CompetitionResp> deleteCompetition(String code) {
         Optional<Competition> competition = competitionRepository.findById(code);

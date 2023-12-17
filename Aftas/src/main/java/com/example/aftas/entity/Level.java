@@ -18,6 +18,6 @@ public class Level {
     private String description;
     private int point;
 
-    @OneToMany(mappedBy = "level")
+    @OneToMany(mappedBy = "level" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Fish> fishes;
 }

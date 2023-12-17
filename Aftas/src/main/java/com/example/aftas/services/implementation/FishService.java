@@ -99,6 +99,7 @@ public class FishService implements FishServiceInterface {
     public Optional<FishResp> deleteFish(String name) {
         Optional<Fish> fish = fishRepository.findById(name);
         if(fish.isPresent()){
+            fish.get().setLevel(null);
             fishRepository.delete(fish.get());
             return Optional.of(modelMapper.map(fish, FishResp.class));
         }else{

@@ -6,6 +6,7 @@ import com.example.aftas.entity.Level;
 import com.example.aftas.exception.ResourceNotFoundException;
 import com.example.aftas.repository.LevelRepository;
 import com.example.aftas.services.interfaces.LevelServiceInterface;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -113,6 +114,7 @@ public class LevelService implements LevelServiceInterface {
         }
     }
 
+    @Transactional
     @Override
     public Optional<LevelResp> deleteLevel(Long id) {
         Optional<Level> level = levelRepository.findById(id);

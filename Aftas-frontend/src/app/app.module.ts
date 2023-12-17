@@ -16,11 +16,12 @@ import { CompetitionCardComponent } from './components/competition/competition-c
 import { ModalComponent } from './components/utils/modal/modal.component';
 import { FormComponent } from './components/utils/form/form.component';
 import { AddCompetitionComponent } from './components/competition/add-competition/add-competition.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompetitionDetailComponent } from './components/competition/competition-detail/competition-detail.component';
 import { TableComponent } from './components/utils/table/table.component';
 import { EmptyComponent } from './components/utils/empty/empty.component';
+import { AutocompleteComponent } from './components/utils/autocomplete/autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +41,16 @@ import { EmptyComponent } from './components/utils/empty/empty.component';
     AddCompetitionComponent,
     CompetitionDetailComponent,
     TableComponent,
-    EmptyComponent
+    EmptyComponent,
+    AutocompleteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule  
+    FontAwesomeModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

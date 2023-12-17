@@ -72,9 +72,8 @@ public class MemberService implements MemberServiceInterface {
     }
 
     @Override
-    public List<MemberResp> getAllMembers(int page, int size) {
-        Page<Member> membersPage = memberRepository.findAll(PageRequest.of(page, size));
-        List<Member> members = membersPage.getContent();
+    public List<MemberResp> getAllMembers() {
+        List<Member> members = memberRepository.findAll();
         return members.stream()
                 .map(member -> modelMapper.map(member, MemberResp.class))
                 .collect(Collectors.toList());

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faEdit, faTrash, faPlusCircle, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -17,9 +17,7 @@ export class TableComponent {
 
 
   faDelete = faTrash;
-  faEdit = faEdit;
-  faPlus = faPlusCircle;
-  faOpen = faBoxOpen;
+  faDetails = faBoxOpen;
 
   isObjectColumn(column: any): boolean {
     return typeof column.field === 'string' && column.field.includes('.');
@@ -44,11 +42,6 @@ export class TableComponent {
   onDelete(item : any){
     this.Delete.emit(item);
   }
-
-  onAddAnswer(item : any){
-    this.Assign.emit(item);
-  }
-
   onClick(item : any){
     this.btnClick.emit(item);
   }

@@ -45,11 +45,8 @@ public class MemberController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<MemberResp>> getAllMembers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
-    ) {
-        List<MemberResp> members = memberService.getAllMembers(page,size);
+    public ResponseEntity<List<MemberResp>> getAllMembers() {
+        List<MemberResp> members = memberService.getAllMembers();
         return ResponseEntity.ok(members);
     }
 

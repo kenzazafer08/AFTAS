@@ -2,8 +2,8 @@ import { Competition } from "./competition";
 import { Member } from "./member";
 
 export interface Ranking{
-    competition : Competition;
+    competition : Competition | undefined;
     member : Member;
-    rank : number;
-    score : number;
+    rank : number | null;
+    score : number | null;
 }

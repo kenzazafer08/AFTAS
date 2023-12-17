@@ -12,7 +12,7 @@ public interface MemberServiceInterface {
     Optional<MemberResp> findById(Long num);
     List<MemberResp> findByName(String name);
     List<MemberResp> findByFamilyName(String familyName);
-    List<MemberResp> getAllMembers(int page, int size);
+    List<MemberResp> getAllMembers();
     Optional<MemberResp> updateMember(Long memberNum , MemberReq member);
     Optional<MemberResp> deleteMember(Long num);
 }

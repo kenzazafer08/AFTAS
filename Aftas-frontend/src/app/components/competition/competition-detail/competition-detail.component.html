@@ -1,11 +1,18 @@
 <app-navbar></app-navbar>
+
+<app-modal [open]="modal" >
+         
+    </app-modal>
+
 <div style="min-height: 500px;" class="p-10 flex sm:flex-cols md:flex-row justify-between items-start">
     <app-competition-card [competition]="competition"></app-competition-card>
-    <ng-template #noParticipants>
-        <app-empty text ="participant"></app-empty>
-      </ng-template>
-    <ng-container *ngIf="rankings && rankings.length > 0; else noParticipants">
-        <app-table class="p-2" [columns]="tableColumns" [data]="rankings"></app-table>
-      </ng-container>
+    <div>
+        <div class="flex justify-around items-start ">
+          <app-autocomplete (formSubmit)="onFormSubmit($event)" class=" pr-5"></app-autocomplete>
+        </div>
+        <ng-container *ngIf="rankings && rankings.length > 0;">
+            <app-table class="p-2" [columns]="tableColumns" [data]="rankings"></app-table>
+          </ng-container>
+    </div>
 </div>
 <app-footer></app-footer>

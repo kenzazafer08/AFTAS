@@ -17,12 +17,12 @@
       <div *ngIf="membersReached" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
         <span class="font-medium">Can't register!</span> Number of participants reached.
       </div>
-        <div *ngIf="waiting or in_progress" class=" flex justify-around items-start ">
+        <div *ngIf="!membersReached && waiting" class=" flex justify-around items-start ">
           <app-autocomplete (formSubmit)="onFormSubmit($event)" class=" pr-5"></app-autocomplete>
           <app-button color="#000075" text="Add member" (btnClick) = "OpenModal()"></app-button>
         </div>
         <ng-container *ngIf="rankings && rankings.length > 0;">
-            <app-table [open]="in_progress" [remove]="remove" class="p-2" [columns]="tableColumns" [data]="rankings" (Delete) = "deleteModel($event)" (Open)="OpenHunt($event)"></app-table>
+            <app-table [open]="in_progress" [remove]="waiting" class="p-2" [columns]="tableColumns" [data]="rankings" (Delete) = "deleteModel($event)" (Open)="OpenHunt($event)"></app-table>
           </ng-container>
     </div>
 </div>

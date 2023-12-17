@@ -24,7 +24,7 @@ export class CompetitionDetailComponent implements OnInit {
   text : string = "participant";
   waiting : boolean = false;
   in_progress : boolean = false;
-  remove : boolean = true;
+  closed : boolean = false;
   membersReached : boolean = false;
   tableColumns = [
     { header: 'Number', field: 'member.num' },
@@ -46,17 +46,20 @@ ngOnInit(): void {
   this.competitionService.getCompetition(this.id).subscribe((competition) => {this.competition = competition ;
   const competitionDate = new Date(this.competition.date);
   competitionDate.setHours(0,0,0,0)
-  this.waiting = competitionDate > DayAfter;
-  this.in_progress = competitionDate.toDateString() === DayAfter.toDateString();
-  this.remove = !this.in_progress
-  console.log(this.in_progress, competitionDate , DayAfter);
+  if(competitionDate > DayAfter){
+    this.waiting = true
+  }else if(competitionDate < DayAfter){
+    this.closed = true
+  }else{
+    this.in_progress = true;
+  }
   }).add(console.log(this.competition));
   this.rankingService.getMembers(this.id).subscribe((members) => {
     this.rankings = members;
-    this.membersReached = members.length === this.competition?.numberOfParticipants;
-    if(this.membersReached){
-      this.waiting = false
-    } 
+    if(members.length === this.competition?.numberOfParticipants){
+      this.membersReached = true
+      if(this.closed) this.membersReached = false
+    }
   }).add(console.log(this.rankings));
   
 }

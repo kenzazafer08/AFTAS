@@ -25,4 +25,9 @@ export class RankingService {
     const url : string = `${this.apiUrl}/Delete/${code}/${num}`;
     return this.httpClient.delete<Ranking>(url);
   }
+  Get(code : string |undefined , num : number) : Observable<Ranking>{
+    console.log("Delete")
+    const url : string = `${this.apiUrl}/${code}/${num}`;
+    return this.httpClient.get<Ranking>(url);
+  }
 }

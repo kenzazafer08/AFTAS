@@ -5,7 +5,8 @@
           <th *ngFor="let column of columns" scope="col" class="px-6 py-3">
             {{ column.header }}
           </th>
-          <th *ngIf="open" scope="col" class="px-6 py-3">Action</th>
+          <th *ngIf="open" scope="col" class="px-6 py-3">Hunts</th>
+          <th *ngIf="remove" scope="col" class="px-6 py-3">Remove</th>
         </tr>
       </thead>
       <tbody>
@@ -18,15 +19,15 @@
                 {{ item[column.field] }}
               </ng-container>
           </td>          
-          <td *ngIf="open" class="px-6 py-4 flex justify-around items-center">
-            <fa-icon 
+          <td class="px-6 py-4 flex justify-around items-center">
+            <fa-icon *ngIf="open" class="cursor-pointer" [icon] = "faDetails" (click)="openHunts(item)"></fa-icon>
+            <fa-icon *ngIf="remove"
               class="cursor-pointer"
               (click)="onDelete(item)"
               [ngStyle]="{ 'color': 'red' }" 
               [icon]="faDelete"
               > 
             </fa-icon>
-            <fa-icon [icon] = "faDetails"></fa-icon>
           </td>
         </tr>
       </tbody>

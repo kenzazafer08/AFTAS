@@ -10,10 +10,10 @@ export class TableComponent {
   @Input() columns: any[] = [];
   @Input() data: any[] = [];
   @Input() open : boolean = false;
+  @Input() remove : boolean = false;
 
+  @Output() Open = new EventEmitter();
   @Output() Delete = new EventEmitter();
-  @Output() Assign = new EventEmitter();
-  @Output() btnClick = new EventEmitter();
 
 
   faDelete = faTrash;
@@ -42,8 +42,8 @@ export class TableComponent {
   onDelete(item : any){
     this.Delete.emit(item);
   }
-  onClick(item : any){
-    this.btnClick.emit(item);
+  openHunts(item : any){
+    this.Open.emit(item);
   }
 
 }

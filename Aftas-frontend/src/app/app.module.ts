@@ -23,6 +23,7 @@ import { TableComponent } from './components/utils/table/table.component';
 import { EmptyComponent } from './components/utils/empty/empty.component';
 import { AutocompleteComponent } from './components/utils/autocomplete/autocomplete.component';
 import { AddMemberComponent } from './components/competition/add-member/add-member.component';
+import { HuntsComponent } from './components/competition/hunting/hunts/hunts.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddMemberComponent } from './components/competition/add-member/add-memb
     TableComponent,
     EmptyComponent,
     AutocompleteComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    HuntsComponent
   ],
   imports: [
     BrowserModule,

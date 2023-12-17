@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompetitionService } from 'src/app/services/competition.service';
 import { Competition } from 'src/app/types/competition';
 import { Ranking } from 'src/app/types/ranking';
@@ -10,7 +10,7 @@ import { MemberReq } from 'src/app/types/MemberReq';
 import Swal from 'sweetalert2';
 const currentDate = new Date();
 const DayAfter = new Date(currentDate);
-
+DayAfter.setHours(0, 0, 0, 0)
 @Component({
   selector: 'app-competition-detail',
   templateUrl: './competition-detail.component.html',
@@ -23,6 +23,7 @@ export class CompetitionDetailComponent implements OnInit {
   modal : boolean = false;
   text : string = "participant";
   waiting : boolean = false;
+  in_progress : boolean = false;
   tableColumns = [
     { header: 'Number', field: 'member.num' },
     { header: 'Name', field: 'member.num' },
@@ -35,15 +36,17 @@ export class CompetitionDetailComponent implements OnInit {
   ];
   selectedMember : Ranking | undefined;
   modalDelete : boolean = false;
- constructor (private route: ActivatedRoute , private competitionService : CompetitionService, private rankingService : RankingService, private memberService : MemberService){}
+ constructor (private r : Router,private route: ActivatedRoute , private competitionService : CompetitionService, private rankingService : RankingService, private memberService : MemberService){}
 ngOnInit(): void {
   this.route.params.subscribe(params => {
     this.id = params['code']; 
   });  
   this.competitionService.getCompetition(this.id).subscribe((competition) => {this.competition = competition ;
   const competitionDate = new Date(this.competition.date);
+  competitionDate.setHours(0,0,0,0)
   this.waiting = competitionDate > DayAfter;
-  console.log(this.waiting, competitionDate , DayAfter);
+  this.in_progress = competitionDate.toDateString() === DayAfter.toDateString();
+  console.log(this.in_progress, competitionDate , DayAfter);
   }).add(console.log(this.competition));
   this.rankingService.getMembers(this.id).subscribe(members => this.rankings = members).add(console.log(this.rankings));
   
@@ -105,6 +108,9 @@ onFormSubmit(formData: any): void {
         this.rankingService.getMembers(this.id).subscribe(members => this.rankings = members).add(console.log(this.rankings));
       }
     }))
+  }
+  OpenHunt(ranking : Ranking | undefined){
+    this.r.navigate(['/Competition/' , ranking?.competition?.code , ranking?.member.num])
   }
 }
 

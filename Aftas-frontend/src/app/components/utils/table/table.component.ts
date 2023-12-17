@@ -9,7 +9,7 @@ import { faBoxOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
 export class TableComponent {
   @Input() columns: any[] = [];
   @Input() data: any[] = [];
-  @Input() question : boolean = false;
+  @Input() open : boolean = false;
 
   @Output() Delete = new EventEmitter();
   @Output() Assign = new EventEmitter();

@@ -30,4 +30,12 @@ export class RankingService {
     const url : string = `${this.apiUrl}/${code}/${num}`;
     return this.httpClient.get<Ranking>(url);
   }
+  calculate(competitionCode: string |undefined) : Observable<Ranking[]>{
+    const url : string = `${this.apiUrl}/calculate/${competitionCode}`;
+    return this.httpClient.put<Ranking[]>(url,competitionCode);
+  } 
+  podium(competitionCode: string |undefined) : Observable<Ranking[]>{
+    const url : string = `${this.apiUrl}/podium/${competitionCode}`;
+    return this.httpClient.get<Ranking[]>(url);
+  }
 }

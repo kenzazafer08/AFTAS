@@ -124,6 +124,12 @@ onFormSubmit(formData: any): void {
   OpenHunt(ranking : Ranking | undefined){
     this.r.navigate(['/Competition/' , ranking?.competition?.code , ranking?.member.num])
   }
+  calculate(){
+    this.rankingService.calculate(this.competition?.code).subscribe((res) => {console.log(res); this.ngOnInit()})
+  }
+  podium(){
+    this.rankingService.podium(this.competition?.code).subscribe((res) => {console.log(res);})
+  }
 }
 
 

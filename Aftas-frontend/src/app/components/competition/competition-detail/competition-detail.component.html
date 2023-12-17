@@ -21,6 +21,13 @@
           <app-autocomplete (formSubmit)="onFormSubmit($event)" class=" pr-5"></app-autocomplete>
           <app-button color="#000075" text="Add member" (btnClick) = "OpenModal()"></app-button>
         </div>
+        <div *ngIf="in_progress" class=" flex justify-end items-start gap-4">
+          <app-button color="gray" text="Calculate score" (btnClick) = "calculate()"></app-button>
+          <app-button color="green" text="Show podium" (btnClick) = "podium()"></app-button>
+        </div>
+        <div *ngIf="closed" class=" flex justify-end items-start gap-4">
+          <app-button color="green" text="Show podium" (btnClick) = "podium()"></app-button>
+        </div>
         <ng-container *ngIf="rankings && rankings.length > 0;">
             <app-table [open]="in_progress" [remove]="waiting" class="p-2" [columns]="tableColumns" [data]="rankings" (Delete) = "deleteModel($event)" (Open)="OpenHunt($event)"></app-table>
           </ng-container>

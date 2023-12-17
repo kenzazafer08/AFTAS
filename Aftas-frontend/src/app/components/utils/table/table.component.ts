@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faBoxOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFish, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -20,7 +20,7 @@ export class TableComponent {
 
 
   faDelete = faTrash;
-  faDetails = faBoxOpen;
+  faDetails = faFish;
 
   incrementValue(item: any, field: string): void {
     if (item[field]) {

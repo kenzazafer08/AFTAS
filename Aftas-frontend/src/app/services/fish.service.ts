@@ -17,4 +17,8 @@ export class FishService {
     let listURL : string = `${this.apiUrl}/random`;
     return this.http.get<Fish[]>(listURL);
   }
+  getAll() : Observable<Fish[]>{
+    let listURL : string = `${this.apiUrl}/list`;
+    return this.http.get<Fish[]>(listURL);
+  }
 }

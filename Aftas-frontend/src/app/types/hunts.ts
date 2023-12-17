@@ -4,7 +4,7 @@ import { Fish } from "./fish";
 export interface hunts{
     competition : Competition,
     fish : Fish,
-    numberOfFishes: number
+    numberOfFish: number
     member : number,
     id : number
 }

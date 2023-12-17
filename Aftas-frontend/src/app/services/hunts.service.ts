@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { hunts } from '../types/hunts';
+import { huntReq } from '../types/huntReq';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,10 @@ export class HuntsService {
   get(competitionCode : string | null , memberNumber : number ) : Observable<hunts[]>{
     const url = this.apiUrl + '/' + competitionCode + '/' + memberNumber
     return this.httpClient.get<hunts[]>(url);
+  }
+
+  add(hunt : huntReq) : Observable<hunts>{
+    const url = this.apiUrl + '/' + 'add'
+    return this.httpClient.post<hunts>(url,hunt);
   }
 }

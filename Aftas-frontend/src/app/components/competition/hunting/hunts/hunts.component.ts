@@ -23,6 +23,8 @@ export class HuntsComponent implements OnInit {
   competition : Competition | undefined = undefined;
   member : Member | undefined = undefined;
   modalOpen : boolean = false;
+  modalDelete : boolean = false;
+  selectedHunt : hunts |undefined
   tableColumns = [
     { header: 'Fish', field: 'fish.name' },
     { header: 'Number of fishes', field: 'numberOfFish' },
@@ -86,5 +88,14 @@ export class HuntsComponent implements OnInit {
   }
   decrement(hunt : hunts){
     this.huntService.decrement(hunt.id).subscribe((res)=> console.log(res))
+  }
+  onRemove(hunt : hunts){
+    this.modalDelete = true;
+    this.selectedHunt = hunt
+  }
+  delete(hunt : hunts | undefined) {
+    this.modalDelete = false;
+    if(hunt)
+    this.huntService.delete(hunt.id).subscribe((res) =>{console.log(res);this.huntService.get(this.id, this.num).subscribe(res => {this.hunts = res; console.log(res)});})
   }
 }

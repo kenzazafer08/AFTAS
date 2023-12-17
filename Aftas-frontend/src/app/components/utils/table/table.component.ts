@@ -11,6 +11,7 @@ export class TableComponent {
   @Input() data: any[] = [];
   @Input() open : boolean = false;
   @Input() remove : boolean = false;
+  @Input() increment : boolean = false;
 
   @Output() Open = new EventEmitter();
   @Output() Delete = new EventEmitter();
@@ -21,19 +22,15 @@ export class TableComponent {
   faDelete = faTrash;
   faDetails = faBoxOpen;
 
-  isNumber(value: any): boolean {
-    return typeof value === 'number';
-  }
-
   incrementValue(item: any, field: string): void {
-    if (this.isNumber(item[field])) {
+    if (item[field]) {
       item[field]++;
       this.plus.emit(item);
     }
   }
 
   decrementValue(item: any, field: string): void {
-    if (this.isNumber(item[field]) && item[field] > 1) {
+    if (item[field] && item[field] > 1) {
       item[field]--;
       this.minus.emit(item);
     }

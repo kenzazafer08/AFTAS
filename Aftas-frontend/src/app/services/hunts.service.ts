@@ -29,4 +29,8 @@ export class HuntsService {
     const url = this.apiUrl + '/' + 'decrement' + '/' +huntId;
     return this.httpClient.put<hunts>(url,huntId);
   }
+  delete(huntId : number) : Observable<hunts>{
+    const url = this.apiUrl + '/' + 'delete' + '/' +huntId;
+    return this.httpClient.delete<hunts>(url);
+  }
 }

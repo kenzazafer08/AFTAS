@@ -5,6 +5,13 @@
         text="{{text}}">
     </app-form>
 </app-modal>
+<app-modal [open]="modalDelete">
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+      Are you sure you wanna remove this hunt : {{selectedHunt?.fish?.name}} 
+  </div>
+  <app-button color="red" text="Yes i'm sure" (btnClick)="delete(selectedHunt)"></app-button>
+  
+  </app-modal>
 <app-navbar></app-navbar>
 <div style="min-height: 500px;" class=" p-10 flex justify-between items-start">
     <div class="hidden sm:block">
@@ -18,7 +25,7 @@
     </div>
     <div style="width: 90%;" class="pl-4">
         <app-button color="#000075" text="Add hunting" (btnClick) = "OpenModal()"></app-button>
-        <app-table *ngIf="hunts.length>0" (plus)="increment($event)" (minus)="decrement($event)"  [remove]="true" class="p-2" [columns]="tableColumns" [data]="hunts" ></app-table>
+        <app-table [increment]="true" *ngIf="hunts.length>0" (plus)="increment($event)" (minus)="decrement($event)" (Delete)="onRemove($event)"  [remove]="true" class="p-2" [columns]="tableColumns" [data]="hunts" ></app-table>
     </div>
 </div>
 <app-footer></app-footer>

@@ -5,7 +5,7 @@
 <!-- Dropdown menu -->
 <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li *ngFor="let m of filteredMembers">
+      <li *ngFor="let m of filteredMembers" class="p-1 font-medium">
         <button (click)="selectMember(m)">{{ m.num }} - {{ m.name }} {{ m.familyName }}</button>
       </li>
     </ul>

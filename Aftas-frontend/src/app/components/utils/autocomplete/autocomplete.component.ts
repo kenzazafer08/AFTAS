@@ -25,7 +25,7 @@ export class AutocompleteComponent implements OnInit {
 
   filterMembers(event: Event): void {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredMembers = this.members.filter((m) => m.num.toString().includes(query));
+    this.filteredMembers = this.members.filter((m) => m.name.includes(query));
   }
 
   selectMember(m: Member): void {

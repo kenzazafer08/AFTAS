@@ -64,9 +64,7 @@ export class CompetitionsComponent implements OnInit{
   }
   AddCompetition(competition : Competition | undefined){
     console.log(competition);
-    this._competitionsService.addCompetition(competition).subscribe((competition) => console.log(competition));
-    this._competitionsService.getTotalPagesNumber(this.pageSize).subscribe(totalPages => this.totalPages = totalPages).add(()=>this.pagesArray = Array.from({ length: this.totalPages }, (_, index) => index + 1));
-    this._competitionsService.getCompetitions(this.currentPage -1 , this.pageSize).subscribe(competitions => this.competitions = competitions ).add(() => this.filteredCompetitions = this.competitions);
+    this._competitionsService.addCompetition(competition).subscribe((competition) =>{ console.log(competition) , this.ngOnInit()});
     this.modalOpen = false;
   }
 

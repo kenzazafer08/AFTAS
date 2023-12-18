@@ -53,7 +53,7 @@ ngOnInit(): void {
     this.closed = true
   }else{
     this.in_progress = true;
-  }
+  }console.log(this.competition)
   }).add(console.log(this.competition));
   this.rankingService.getMembers(this.id).subscribe((members) => {
     this.rankings = members;

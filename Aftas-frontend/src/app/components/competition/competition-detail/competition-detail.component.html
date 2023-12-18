@@ -15,8 +15,10 @@
 </app-modal>
 
 <div style="min-height: 500px;" class="p-10 flex sm:flex-cols md:flex-row justify-between items-start">
-    <app-competition-card class="hidden sm:block" [competition]="competition"></app-competition-card>
-    <div class="w-full justify-start">
+  <ng-container *ngIf="competition">
+    <app-competition-card [competition]="competition" [options]="false"></app-competition-card>
+  </ng-container>
+      <div class="w-full justify-start">
         <div *ngIf="membersReached && !in_progress" class="p-4 m-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
           <span class="font-medium">Can't register!</span> Number of participants reached.
         </div>

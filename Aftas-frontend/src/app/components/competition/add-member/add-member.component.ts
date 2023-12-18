@@ -44,18 +44,11 @@ export class AddMemberComponent implements OnInit {
         this.add.emit(newMember);
       }
 
-      // Reset form data after submission
-      this.resetFormData();
-    }
+      formData.name = '',
+      formData.familyName = '',
+      formData.nationality = '',
+      formData.identityDocument = '',
+      formData.identityNumber = ''   }
   }
 
-  resetFormData(): void {
-    this.formData = {
-      name : '',
-      familyName : '',
-      nationality : '',
-      identityDocument : '',
-      identityNumber : '',
-    };
-  }
 }

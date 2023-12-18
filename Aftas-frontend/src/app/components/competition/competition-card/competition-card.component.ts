@@ -12,7 +12,6 @@ export class CompetitionCardComponent implements OnInit {
   }
   @Input() competition: Competition | undefined; 
   @Input() options: boolean = false;
-  @Output() delete = new EventEmitter();
   faTime = faClockFour;
   faUser = faUser;
   faMoney = faMoneyBill;
@@ -21,8 +20,5 @@ export class CompetitionCardComponent implements OnInit {
 
     const [hours, minutes, seconds] = time.split(':');
     return `${hours}h:${minutes}m`;
-  }
-  onDelete(competition : Competition | undefined){
-    this.delete.emit(competition);
   }
 }

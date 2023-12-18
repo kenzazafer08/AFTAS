@@ -59,7 +59,9 @@ ngOnInit(): void {
     this.rankings = members;
     if(members.length === this.competition?.numberOfParticipants){
       this.membersReached = true
-      if(this.closed) this.membersReached = false
+      if(this.closed){
+        this.membersReached = false
+      } 
     }
   }).add(console.log(this.rankings));
   
@@ -98,6 +100,7 @@ onFormSubmit(formData: any): void {
       confirmButtonColor: 'blue' // Change this to your desired color
     }).then((result) => {
       if (result.isConfirmed) {
+        this.ngOnInit();
       }
     }))
   }

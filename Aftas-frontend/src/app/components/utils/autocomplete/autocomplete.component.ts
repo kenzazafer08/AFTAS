@@ -36,5 +36,6 @@ export class AutocompleteComponent implements OnInit {
     console.log("Submit");
     console.log(this.selectedMember)
     this.formSubmit.emit(this.selectedMember);
+    this.selectedMember = undefined;
   }
 }

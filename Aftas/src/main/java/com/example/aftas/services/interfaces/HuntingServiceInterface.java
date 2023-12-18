@@ -18,7 +18,7 @@ public interface HuntingServiceInterface {
 
     List<HuntingResp> getHuntByFish(String fishName);
 
-    List<HuntingResp> getHuntByMemberInParticipant(String code , Long num);
+    List<HuntingResp> getHuntByParticipantInCompetition(String code , Long num);
 
     Optional<HuntingResp> createHunting(HuntingReq hunting);
 

@@ -73,7 +73,7 @@ public class HuntingService implements HuntingServiceInterface {
     }
 
     @Override
-    public List<HuntingResp> getHuntByMemberInParticipant(String code, Long num) {
+    public List<HuntingResp> getHuntByParticipantInCompetition(String code, Long num) {
         Competition competition = competitionRepository.findById(code).orElseThrow(() -> new ResourceNotFoundException("Invalid competition Code"));
         Member member = memberRepository.findById(num).orElseThrow(() -> new ResourceNotFoundException("Invalid Member code"));
         RankingId rankingId = new RankingId(competition.getCode(), member.getNum());

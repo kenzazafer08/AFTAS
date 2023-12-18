@@ -43,7 +43,7 @@ public class HuntingController {
 
     @GetMapping("/{id}/{num}")
     public ResponseEntity<List<HuntingResp>> getHuntingBymemberAndCompetition(@PathVariable String id,@PathVariable Long num){
-        return ResponseEntity.ok(huntingService.getHuntByMemberInParticipant(id,num));
+        return ResponseEntity.ok(huntingService.getHuntByParticipantInCompetition(id,num));
     }
 
     @GetMapping("/Member/{id}")

@@ -106,7 +106,7 @@ public class RankingService implements RankingServiceInterface {
 
     public int calculateScoreForRanking(Ranking ranking, String competitionCode) {
         int totalScore = 0;
-        List<HuntingResp> hunts = huntingService.getHuntByMemberInParticipant(competitionCode, ranking.getMember().getNum());
+        List<HuntingResp> hunts = huntingService.getHuntByParticipantInCompetition(competitionCode, ranking.getMember().getNum());
         for (HuntingResp hunt : hunts) {
             int score = hunt.getFish().getLevel().getPoint() * hunt.getNumberOfFish();
             totalScore += score;

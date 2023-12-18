@@ -13,11 +13,11 @@ public class Ranking {
     @EmbeddedId
     private RankingId id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @MapsId("competitionCode")
     private Competition competition;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @MapsId("memberNum")
     private Member member;
 

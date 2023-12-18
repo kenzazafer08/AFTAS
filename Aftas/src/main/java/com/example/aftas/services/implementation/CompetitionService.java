@@ -89,7 +89,6 @@ public class CompetitionService implements CompetitionServiceInterface {
         }
     }
 
-    @Transactional
     @Override
     public Optional<CompetitionResp> deleteCompetition(String code) {
         Optional<Competition> competition = competitionRepository.findById(code);

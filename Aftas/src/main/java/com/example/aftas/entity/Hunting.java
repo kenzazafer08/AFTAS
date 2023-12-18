@@ -16,10 +16,10 @@ public class Hunting {
 
     private int numberOfFish;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Fish fish;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Competition competition;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Member member;
 }

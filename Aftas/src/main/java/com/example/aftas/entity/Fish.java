@@ -17,7 +17,7 @@ public class Fish {
 
     private float averageWeight;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "level_id")
     private Level level;
 

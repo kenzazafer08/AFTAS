@@ -28,5 +28,5 @@ public class Member {
     private List<Hunting> hunts;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ranking> competitions;
+    private List<Ranking> rankings;
 }

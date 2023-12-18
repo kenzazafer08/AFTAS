@@ -97,7 +97,7 @@ onFormSubmit(formData: any): void {
       text: `Member ${member.name} registered successfully !`,
       icon: 'success',
       confirmButtonText: 'Okay',
-      confirmButtonColor: 'blue' // Change this to your desired color
+      confirmButtonColor: 'blue' 
     }).then((result) => {
       if (result.isConfirmed) {
         this.ngOnInit();
@@ -113,17 +113,7 @@ onFormSubmit(formData: any): void {
   delete(ranking : Ranking | undefined){
     this.modalDelete = false;
     if(ranking)
-    this.rankingService.Delete(ranking.competition?.code , ranking.member.num).subscribe(ranking => Swal.fire({
-      title: 'Success!',
-      text: `Member ${ranking.member.name} removed successfully !`,
-      icon: 'success',
-      confirmButtonText: 'Okay',
-      confirmButtonColor: 'blue' // Change this to your desired color
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.rankingService.getMembers(this.id).subscribe(members => this.rankings = members).add(console.log(this.rankings));
-      }
-    }))
+    this.rankingService.Delete(ranking?.competition?.code , ranking.member.num).subscribe(()=>{ this.rankings = this.rankings.filter(r => r.member.num !== ranking.member.num)})
   }
   OpenHunt(ranking : Ranking | undefined){
     this.r.navigate(['/Competition/' , ranking?.competition?.code , ranking?.member.num])
